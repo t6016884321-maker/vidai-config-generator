@@ -3,83 +3,79 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="免费生成 Codex 与 Claude Code 的胃袋AI API 配置，不收集 API Key。">
-  <title>胃袋AI 配置生成器｜Codex / Claude Code</title>
+  <meta name="description" content="给 Codex 深度用户的可审查配置工具与低门槛真实仓库试跑。页面不收集 API Key。">
+  <title>Codex 真实仓库试跑｜胃袋AI</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="noise" aria-hidden="true"></div>
+  <div class="grid" aria-hidden="true"></div>
   <header class="topbar">
-    <a class="brand" href="https://api.david-ai.net" target="_blank" rel="noopener">
-      <span class="brand-mark">胃</span>
-      <span>VidAI · 胃袋AI</span>
-    </a>
-    <div class="status"><span></span> 配置仅在浏览器本地生成</div>
+    <a class="brand" href="https://api.david-ai.net" target="_blank" rel="noopener"><span>胃</span> VidAI · 胃袋AI</a>
+    <a class="status-link" href="https://api.david-ai.net/monitor" target="_blank" rel="noopener"><i></i> 查看实时线路状态</a>
   </header>
-
   <main>
     <section class="hero">
-      <p class="eyebrow">CONFIG GENERATOR / 01</p>
-      <h1>三步生成<br><em>AI 编程配置</em></h1>
-      <p class="lead">选择工具、系统和模型名称，立即得到可复制的配置。无需上传密钥，没有后端请求。</p>
-      <div class="badges"><span>Codex</span><span>Claude Code</span><span>稳定接入</span><span>按量使用</span></div>
+      <div class="hero-copy">
+        <p class="kicker">CODEX DEEP-USE TRIAL</p>
+        <h1>别先买大套餐。<br><em>¥9.9 跑一次真实仓库。</em></h1>
+        <p class="lead">读项目、跨文件修改、跑测试。用自己的任务验证稳定性和成本，再决定是否继续。</p>
+        <div class="actions">
+          <a class="primary tracked-register" data-source="generator_hero" href="#">¥9.9 开始实测 <b>→</b></a>
+          <a class="secondary" href="#generator">先免费生成配置</a>
+        </div>
+        <p class="reward">¥9.9 获得 $50 API 额度；通过邀请链接注册并完成首充，按当前站内规则另有 5% 奖励。</p>
+      </div>
+      <aside class="proof-card" aria-label="可核验数据">
+        <div class="proof-head"><span>CODEX 主线路</span><b>监控快照</b></div>
+        <strong>99.26<small>%</small></strong>
+        <p>近 7 天可用性</p>
+        <dl><div><dt>记录日期</dt><dd>2026-09-07</dd></div><div><dt>当前状态</dt><dd>以实时页为准</dd></div></dl>
+        <a href="https://api.david-ai.net/monitor" target="_blank" rel="noopener">核对实时状态 →</a>
+        <small>不同线路表现不同；数字会随监控更新，不构成永久可用性承诺。</small>
+      </aside>
     </section>
-
-    <section class="workspace" aria-label="配置生成器">
-      <div class="form-card">
-        <div class="section-head"><span>01</span><h2>选择你的工具</h2></div>
-        <div class="segmented" id="toolTabs" role="radiogroup" aria-label="工具">
-          <button class="active" type="button" data-tool="codex" role="radio" aria-checked="true">Codex</button>
-          <button type="button" data-tool="claude" role="radio" aria-checked="false">Claude Code</button>
-        </div>
-
-        <div class="section-head"><span>02</span><h2>选择系统</h2></div>
-        <div class="segmented three" id="osTabs" role="radiogroup" aria-label="操作系统">
-          <button class="active" type="button" data-os="mac" role="radio" aria-checked="true">macOS</button>
-          <button type="button" data-os="linux" role="radio" aria-checked="false">Linux</button>
-          <button type="button" data-os="windows" role="radio" aria-checked="false">Windows</button>
-        </div>
-
-        <div id="codexFields">
-          <label for="model">Codex 可用模型名称</label>
+    <section class="challenge">
+      <p class="kicker">THE 3-TASK TEST</p>
+      <h2>充值后先跑这三个任务</h2>
+      <div class="tasks">
+        <article><b>01</b><h3>读懂仓库</h3><p>让 Codex 只读分析架构、风险点和测试入口。</p></article>
+        <article><b>02</b><h3>跨文件修改</h3><p>完成一个可验收的小功能，保留清晰 diff。</p></article>
+        <article><b>03</b><h3>跑完测试</h3><p>记录总耗时、重试次数、Token 与实际扣费。</p></article>
+      </div>
+      <p class="challenge-note">成功和失败都记录。真实数据比“绝对稳定”的口号更有价值。</p>
+    </section>
+    <section class="generator" id="generator">
+      <div class="generator-intro">
+        <p class="kicker">FREE CONFIG GENERATOR</p>
+        <h2>先生成，再决定</h2>
+        <p>配置只在当前浏览器生成，不上传、不保存 API Key。复制前可完整审查。</p>
+        <div class="privacy"><b>安全提示</b><span>不要在页面、截图、群聊或仓库中粘贴真实 API Key。</span></div>
+      </div>
+      <div class="workspace" aria-label="Codex 配置生成器">
+        <div class="form-card">
+          <label for="model">控制台当前模型名称</label>
           <input id="model" type="text" value="从胃袋AI控制台复制的模型名" maxlength="160" autocomplete="off">
-          <p class="hint">不要猜模型名，以胃袋AI控制台当前展示为准。</p>
+          <p class="hint">模型会变化，不要照搬旧截图中的名称。</p>
+          <div class="segmented" id="osTabs" role="radiogroup" aria-label="操作系统">
+            <button class="active" type="button" data-os="mac" role="radio" aria-checked="true">macOS</button>
+            <button type="button" data-os="linux" role="radio" aria-checked="false">Linux</button>
+            <button type="button" data-os="windows" role="radio" aria-checked="false">Windows</button>
+          </div>
+          <label class="check"><input id="persist" type="checkbox"><span>同时生成长期保存命令</span></label>
         </div>
-
-        <div id="claudeFields" hidden>
-          <label for="claudeBase">Claude API 基础地址</label>
-          <input id="claudeBase" type="url" value="https://api.david-ai.net" maxlength="200" inputmode="url" autocomplete="off">
-          <p class="hint" id="claudeHint">如控制台提供单独的 Claude Code 地址，请用控制台地址替换。</p>
+        <div class="output-card">
+          <div class="output-top"><strong>~/.codex/config.toml</strong><button id="copyBtn" type="button">复制全部</button></div>
+          <pre><code id="output"></code></pre>
+          <div id="copyState" class="copy-state" aria-live="polite"></div>
         </div>
-
-        <label class="check"><input id="persist" type="checkbox"><span>同时生成长期保存命令</span></label>
-        <div class="privacy-note"><strong>请勿在此输入真实 API Key。</strong>生成结果始终使用占位符。</div>
-      </div>
-
-      <div class="output-card">
-        <div class="output-top">
-          <div><span class="live-dot"></span><strong id="outputTitle">Codex 配置</strong></div>
-          <button id="copyBtn" class="copy" type="button">复制全部</button>
-        </div>
-        <pre><code id="output"></code></pre>
-        <div id="copyState" class="copy-state" aria-live="polite"></div>
-        <ol class="next-steps" id="nextSteps"></ol>
       </div>
     </section>
-
-    <section class="proof">
-      <article><b>不收集密钥</b><p>页面无 API 请求，所有配置均在当前浏览器生成。</p></article>
-      <article><b>命令可审查</b><p>复制前完整展示，不执行任何自动写入操作。</p></article>
-      <article><b>官方格式</b><p>Codex Provider 结构依据 OpenAI 官方配置文档。</p></article>
-    </section>
-
-    <section class="cta">
-      <div><p class="eyebrow">READY TO BUILD</p><h2>胃袋AI，量大管饱可劲造。</h2><p>面向 Codex / Claude Code / Agent 高频开发场景。</p></div>
-      <div class="cta-links"><a class="primary" href="https://api.david-ai.net/register" target="_blank" rel="noopener">注册胃袋AI →</a><a href="https://t.me/ngjiabi_api/8" target="_blank" rel="noopener">查看完整教程</a></div>
+    <section class="final-cta">
+      <div><p class="kicker">READY WHEN YOU ARE</p><h2>用真实任务做决定。</h2><p>最低 ¥9.9 开始，不需要先相信广告。</p></div>
+      <a class="primary tracked-register" data-source="generator_bottom" href="#">¥9.9 开始实测 →</a>
     </section>
   </main>
-
-  <footer><span>VidAI · 胃袋AI</span><span>网址：<a href="https://api.david-ai.net">https://api.david-ai.net</a></span></footer>
+  <footer><span>胃袋AI，量大管饱可劲造。</span><span><a href="https://github.com/t6016884321-maker/vidai-ai-coding-guide" target="_blank" rel="noopener">完整教程与排错</a> · <a href="https://t.me/ngjiabi_api" target="_blank" rel="noopener">Telegram 状态与支持</a></span></footer>
   <script src="app.js"></script>
 </body>
 </html>
