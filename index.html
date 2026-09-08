@@ -6,6 +6,7 @@
   <meta name="description" content="给 Codex 深度用户的可审查配置工具与低门槛真实仓库试跑。页面不收集 API Key。">
   <title>Codex 真实仓库试跑｜胃袋AI</title>
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="challenge.css">
 </head>
 <body>
   <div class="grid" aria-hidden="true"></div>
@@ -36,13 +37,28 @@
     </section>
     <section class="challenge">
       <p class="kicker">THE 3-TASK TEST</p>
-      <h2>充值后先跑这三个任务</h2>
+      <h2>参加 Codex 真实仓库挑战</h2>
+      <p class="section-lead">不是抽奖，也不要求先替我们宣传。用你自己的仓库完成三项任务，按统一模板记录成功与失败，再决定这条线路是否适合你。</p>
       <div class="tasks">
         <article><b>01</b><h3>读懂仓库</h3><p>让 Codex 只读分析架构、风险点和测试入口。</p></article>
         <article><b>02</b><h3>跨文件修改</h3><p>完成一个可验收的小功能，保留清晰 diff。</p></article>
         <article><b>03</b><h3>跑完测试</h3><p>记录总耗时、重试次数、Token 与实际扣费。</p></article>
       </div>
-      <p class="challenge-note">成功和失败都记录。真实数据比“绝对稳定”的口号更有价值。</p>
+      <div class="challenge-actions">
+        <a class="primary" href="https://github.com/t6016884321-maker/vidai-ai-coding-guide/issues/new?template=codex-real-repo-challenge.yml" target="_blank" rel="noopener">提交挑战记录 →</a>
+        <a class="secondary" href="https://github.com/t6016884321-maker/vidai-ai-coding-guide/blob/main/BENCHMARK.md" target="_blank" rel="noopener">查看完整测试模板</a>
+      </div>
+      <p class="challenge-note">Issue 只填写脱敏结果；不要提交 API Key、私有代码、账单或个人信息。成功和失败都会保留。</p>
+    </section>
+    <section class="problem-hub">
+      <p class="kicker">FIX THE ERROR FIRST</p>
+      <h2>遇到报错？先用免费排错指南</h2>
+      <p class="section-lead">不需要注册，不需要充值。先解决最常见的三类 Codex 自定义 Provider 问题。</p>
+      <div class="problem-grid">
+        <a href="https://github.com/t6016884321-maker/vidai-ai-coding-guide/blob/main/docs/codex-401.md" target="_blank" rel="noopener"><span>401</span><h3>API Key 未生效</h3><p>安全确认变量是否存在，不在终端打印真实密钥。</p><b>打开指南 →</b></a>
+        <a href="https://github.com/t6016884321-maker/vidai-ai-coding-guide/blob/main/docs/codex-model-not-found.md" target="_blank" rel="noopener"><span>MODEL</span><h3>model not found</h3><p>区分模型名、Provider 和线路问题，避免照搬旧截图。</p><b>打开指南 →</b></a>
+        <a href="https://github.com/t6016884321-maker/vidai-ai-coding-guide/blob/main/docs/codex-config-not-applied.md" target="_blank" rel="noopener"><span>CONFIG</span><h3>配置没有生效</h3><p>核对用户级文件、TOML 层级和项目配置限制。</p><b>打开指南 →</b></a>
+      </div>
     </section>
     <section class="generator" id="generator">
       <div class="generator-intro">
