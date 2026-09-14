@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://t6016884321-maker.github.io/vidai-config-generator/sitemap.xml

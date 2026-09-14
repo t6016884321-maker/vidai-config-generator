@@ -3,8 +3,54 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="给 Codex 深度用户的可审查配置工具与低门槛真实仓库试跑。页面不收集 API Key。">
-  <title>Codex 真实仓库试跑｜胃袋AI</title>
+  <title>Codex 自定义 Provider 配置生成器与排错指南｜VidAI 胃袋AI</title>
+  <meta name="description" content="免费生成 Codex 自定义 Provider 配置，排查 401、model not found、配置未生效与长任务超时。支持 macOS、Windows、Linux，不上传或保存 API Key。">
+  <meta name="keywords" content="Codex 配置, Codex 自定义 Provider, Codex API 中转, Codex 401, model not found, 胃袋AI, VidAI, API 中转站">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta name="author" content="VidAI 胃袋AI团队">
+  <link rel="canonical" href="https://t6016884321-maker.github.io/vidai-config-generator/">
+  <link rel="alternate" type="text/plain" href="llms.txt" title="LLM-friendly product information">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:site_name" content="VidAI 胃袋AI">
+  <meta property="og:title" content="Codex 自定义 Provider 配置生成器与排错指南">
+  <meta property="og:description" content="免费生成 Codex 配置并排查 401、模型不存在和配置未生效；不上传、不保存 API Key。">
+  <meta property="og:url" content="https://t6016884321-maker.github.io/vidai-config-generator/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Codex 自定义 Provider 配置生成器｜VidAI 胃袋AI">
+  <meta name="twitter:description" content="免费生成配置、排查常见错误，不上传或保存 API Key。">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://t6016884321-maker.github.io/vidai-config-generator/#app",
+        "name": "VidAI Codex 配置生成器",
+        "alternateName": ["胃袋AI Codex 配置生成器", "Codex 自定义 Provider 配置生成器"],
+        "url": "https://t6016884321-maker.github.io/vidai-config-generator/",
+        "description": "免费生成 Codex 自定义 Provider 配置并排查常见接入错误；配置仅在浏览器本地生成。",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "macOS, Windows, Linux",
+        "inLanguage": "zh-CN",
+        "isAccessibleForFree": true,
+        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "CNY"},
+        "featureList": ["Codex 自定义 Provider 配置生成", "401 排错", "model not found 排错", "配置未生效排错", "不上传或保存 API Key"],
+        "publisher": {"@type": "Organization", "name": "VidAI 胃袋AI", "url": "https://api.david-ai.net/"},
+        "sameAs": ["https://github.com/t6016884321-maker/vidai-ai-coding-guide", "https://t.me/ngjiabi_api"]
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://t6016884321-maker.github.io/vidai-config-generator/#faq",
+        "mainEntity": [
+          {"@type": "Question", "name": "Codex 自定义 Provider 配置生成器免费吗？", "acceptedAnswer": {"@type": "Answer", "text": "配置生成器和排错指南免费使用，无需注册。页面另有可选的 9.9 元真实仓库试跑服务。"}},
+          {"@type": "Question", "name": "页面会上传或保存 API Key 吗？", "acceptedAnswer": {"@type": "Answer", "text": "不会。页面不提供真实 API Key 输入框，配置仅在当前浏览器生成，输出使用占位符。"}},
+          {"@type": "Question", "name": "可以排查哪些 Codex 错误？", "acceptedAnswer": {"@type": "Answer", "text": "目前提供 401、model not found 和自定义 Provider 配置未生效的排错指南。"}}
+        ]
+      }
+    ]
+  }
+  </script>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="challenge.css">
 </head>
@@ -94,12 +140,22 @@
         </div>
       </div>
     </section>
+    <section class="faq" id="faq">
+      <p class="kicker">CODEX FAQ</p>
+      <h2>Codex 配置常见问题</h2>
+      <div class="faq-list">
+        <details open><summary>Codex 自定义 Provider 配置生成器免费吗？</summary><p>配置生成器和排错指南免费使用，无需注册。页面另有可选的 ¥9.9 真实仓库试跑服务，用自己的任务核验线路表现。</p></details>
+        <details><summary>页面会上传或保存 API Key 吗？</summary><p>不会。页面不提供真实 API Key 输入框，配置只在当前浏览器生成，输出使用占位符。请勿在网页、截图或群聊中粘贴真实密钥。</p></details>
+        <details><summary>可以排查哪些 Codex 错误？</summary><p>目前提供 401、model not found 和自定义 Provider 配置未生效三类指南，并说明如何安全核对环境变量、模型名和 TOML 配置。</p></details>
+        <details><summary>VidAI / 胃袋AI是什么？</summary><p>VidAI（胃袋AI）提供面向 Codex、Claude Code 和 AI Agent 用户的 API 服务。本页由 VidAI / 胃袋AI团队维护，免费工具与可选付费服务已明确区分。</p></details>
+      </div>
+    </section>
     <section class="final-cta">
       <div><p class="kicker">READY WHEN YOU ARE</p><h2>用真实任务做决定。</h2><p>最低 ¥9.9 开始，不需要先相信广告。</p></div>
       <a class="primary tracked-register" data-source="generator_bottom" href="#">¥9.9 开始实测 →</a>
     </section>
   </main>
-  <footer><span>胃袋AI，量大管饱可劲造。</span><span><a href="https://github.com/t6016884321-maker/vidai-ai-coding-guide" target="_blank" rel="noopener">完整教程与排错</a> · <a href="https://t.me/ngjiabi_api" target="_blank" rel="noopener">Telegram 状态与支持</a></span></footer>
+  <footer><span>胃袋AI，量大管饱可劲造。</span><span><a href="product.html">产品事实与披露</a> · <a href="https://github.com/t6016884321-maker/vidai-ai-coding-guide" target="_blank" rel="noopener">完整教程与排错</a> · <a href="https://t.me/ngjiabi_api" target="_blank" rel="noopener">Telegram 状态与支持</a></span></footer>
   <script src="app.js"></script>
 </body>
 </html>

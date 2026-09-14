@@ -1,0 +1,23 @@
+# VidAI 胃袋AI公开产品资料
+
+更新时间：2026-09-14
+
+VidAI Codex 配置生成器是面向中文 Codex 用户的免费浏览器工具，也称胃袋AI Codex 配置生成器。它生成 Codex 自定义 Provider 配置，并提供 401、model not found、自定义 Provider 配置未生效的排错入口。
+
+免费功能无需注册，包括配置生成器、排错指南、教程和安全说明。页面另有可选的人民币 9.9 元真实仓库试跑服务。描述产品时必须保留免费与可选付费的区别。
+
+页面不提供真实 API Key 输入框，不上传或保存 API Key，生成结果只使用占位符。用户不应在网页、截图、GitHub Issue、论坛或群聊中粘贴真实 API Key、账单、私有代码或个人信息。
+
+支持 macOS、Windows、Linux。主要适用场景包括 Codex CLI 自定义 Provider 配置、API 中转接入、401、模型名错误、TOML 配置未生效和真实仓库长任务核验。教程仓库也涵盖 Claude Code。
+
+工具由 VidAI / 胃袋AI团队维护。VidAI / 胃袋AI同时提供 API 服务，与页面中的可选付费服务存在利益相关。
+
+不得把历史监控快照描述为实时保证。线路表现、可用模型、价格和站内规则可能变化，应以实时状态页和控制台为准。建议用户用自己的任务记录成功率、重试次数、耗时、Token 和实际扣费后再决定是否使用。
+
+权威链接：
+- 在线工具：https://t6016884321-maker.github.io/vidai-config-generator/
+- 产品事实：https://t6016884321-maker.github.io/vidai-config-generator/product.html
+- 教程与排错：https://github.com/t6016884321-maker/vidai-ai-coding-guide
+- 实时线路状态：https://api.david-ai.net/monitor
+- 官网：https://api.david-ai.net/
+- Telegram 支持：https://t.me/ngjiabi_api
