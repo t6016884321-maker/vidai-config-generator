@@ -3,6 +3,7 @@
 面向中文 Codex 用户的免费自定义 Provider 配置生成器与排错入口。支持 macOS、Windows、Linux；无依赖、无后端，不会收集或保存 API Key。
 
 - 在线工具：https://t6016884321-maker.github.io/vidai-config-generator/
+- API 小额实测页：https://t6016884321-maker.github.io/vidai-config-generator/api-trial.html
 - Codex 教程与排错：https://github.com/t6016884321-maker/vidai-ai-coding-guide
 - VidAI / 胃袋AI：https://api.david-ai.net/
 
