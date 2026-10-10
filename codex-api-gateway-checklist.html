@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Codex API 中转能回复却跑不完仓库？15 分钟验收与排错清单</title>
+  <meta name="description" content="Codex 接上 API 后能聊天却总在真实仓库重连？用 15 分钟检查 Responses API、SSE、工具调用、超时重试和真实扣费，附 config.toml 配置示例。">
+  <meta name="keywords" content="Codex API 中转,Codex Responses API,Codex SSE,Codex 工具调用,Codex config.toml,Codex 401,API 中转站测试">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+  <link rel="canonical" href="https://t6016884321-maker.github.io/vidai-config-generator/codex-api-gateway-checklist.html">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="Codex API 中转：15 分钟真实仓库验收清单">
+  <meta property="og:description" content="能回复不等于能跑完项目。验证 Responses、SSE、工具调用、重试与真实扣费。">
+  <meta property="og:image" content="https://t6016884321-maker.github.io/vidai-config-generator/vidai-poster-v3.png">
+  <meta property="og:url" content="https://t6016884321-maker.github.io/vidai-config-generator/codex-api-gateway-checklist.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    main{max-width:920px;padding:68px 24px 110px}.article{padding:clamp(24px,5vw,48px);border:1px solid var(--line);border-radius:22px;background:rgba(14,20,29,.91)}
+    h1{font-size:clamp(38px,6vw,68px);line-height:1.05}.deck{font-size:20px;color:#c7d0db;line-height:1.75}.meta{color:var(--muted);font-size:14px}
+    h2{font-size:30px;margin:52px 0 14px}h3{font-size:21px;margin:30px 0 10px}p,li{color:#c7d0db;line-height:1.8}li{margin:8px 0}
+    .toc,.callout,.result{padding:22px 26px;border:1px solid var(--line);border-radius:14px;background:#0b1017}.callout{border-left:3px solid var(--cyan)}.warn{border-left-color:var(--orange)}
+    code{color:var(--green)}pre{overflow:auto;padding:22px;border:1px solid var(--line);border-radius:12px;background:#05080d;color:#d7fdf2;line-height:1.55}
+    .check{list-style:none;padding:0}.check li{padding:12px 0;border-bottom:1px solid var(--line)}.check li:before{content:"□";color:var(--green);font-weight:800;margin-right:12px}
+    .poster{display:block;width:min(100%,560px);margin:36px auto;border:1px solid var(--line);border-radius:18px}.source a,.article a{color:var(--cyan)}
+    .sticky-cta{display:flex;gap:18px;align-items:center;justify-content:space-between;margin-top:50px;padding:26px;border:1px solid var(--green);border-radius:16px;background:rgba(58,255,179,.06)}
+    @media(max-width:700px){.sticky-cta{display:block}.sticky-cta .primary{display:block;margin-top:18px;text-align:center}}
+  </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"TechArticle","headline":"Codex API 中转能回复却跑不完仓库？15 分钟验收与排错清单","datePublished":"2026-10-10","dateModified":"2026-10-10","inLanguage":"zh-CN","image":"https://t6016884321-maker.github.io/vidai-config-generator/vidai-poster-v3.png","author":{"@type":"Organization","name":"VidAI 胃袋AI"},"publisher":{"@type":"Organization","name":"VidAI 胃袋AI","url":"https://api.david-ai.net/"},"description":"用真实仓库检查 Codex API 中转的 Responses、SSE、工具调用、重试和真实扣费。"}
+  </script>
+</head>
+<body>
+  <div class="grid" aria-hidden="true"></div>
+  <header class="topbar"><a class="brand" href="./"><span>胃</span> VidAI · 胃袋AI</a><a class="status-link" href="https://api.david-ai.net/monitor" target="_blank" rel="noopener"><i></i> 实时线路状态</a></header>
+  <main><article class="article">
+    <p class="kicker">CODEX TROUBLESHOOTING · 15 MIN</p>
+    <h1>Codex 接上 API 能回复，<br><em>为什么一跑仓库就断？</em></h1>
+    <p class="deck">“你好”能返回，只能证明最短链路通了。真实编码任务还会经过连续流式输出、工具调用、长上下文、重试和计费。下面这套验收清单，用同一个小任务把问题一次分清。</p>
+    <p class="meta">更新：2026-10-10 · 适用于 Codex CLI、自定义 Provider 与兼容 Responses API 的网关</p>
+
+    <div class="toc"><strong>先看结论</strong><ul><li>不要先买大额套餐；先用真实仓库和小额预算测试。</li><li>不要只看首句速度；记录完成率、重连次数、工具调用和实际扣费。</li><li>配置、模型名、协议和线路是四个不同问题，要分开验证。</li></ul></div>
+
+    <h2>一、先排除配置问题</h2>
+    <p>OpenAI 官方 Codex 文档说明：自定义模型供应商由 <code>base_url</code>、wire API、认证方式和可选请求头组成；Provider 配置应放在用户级 <code>~/.codex/config.toml</code>。项目内的 <code>.codex/config.toml</code> 不能覆盖 <code>model_provider</code> 和 <code>model_providers</code> 等认证相关设置。</p>
+    <pre><code>model = "你的可用模型名"
+model_provider = "your_gateway"
+
+[model_providers.your_gateway]
+name = "Your Gateway"
+base_url = "https://你的网关地址/v1"
+env_key = "OPENAI_API_KEY"
+wire_api = "responses"</code></pre>
+    <div class="callout warn"><strong>安全提醒：</strong>API Key 只放在本机环境变量或安全凭据存储中。不要粘贴到网页、截图、公开仓库、Issue 或群聊。</div>
+
+    <h2>二、15 分钟真实仓库验收</h2>
+    <p>选一个能在十几分钟完成、失败也不会造成损失的小仓库。给不同线路使用完全相同的任务，才能比较。</p>
+    <ol>
+      <li><strong>只读理解：</strong>让 Codex 找到入口文件、测试命令和一个关键调用链。</li>
+      <li><strong>跨文件小改：</strong>修改一个实现文件和一个测试文件，要求先说明计划。</li>
+      <li><strong>执行验证：</strong>让它运行测试；失败时读取错误并修复一次。</li>
+      <li><strong>记录数据：</strong>总耗时、是否完成、重连次数、工具调用是否闭环、输入输出用量和实际扣费。</li>
+    </ol>
+    <ul class="check">
+      <li>Responses API 能正常开始并持续返回事件</li>
+      <li>SSE 流中途没有无故停住或重复片段</li>
+      <li>工具调用参数完整，结果回传后能继续推理</li>
+      <li>长任务失败后有明确错误，而不是无限等待</li>
+      <li>模型名、用量记录和最终扣费可以核对</li>
+    </ul>
+
+    <h2>三、按症状快速定位</h2>
+    <h3>401 / Unauthorized</h3>
+    <p>先确认 Codex 启动进程确实能读取配置中 <code>env_key</code> 指向的环境变量，再检查 Key 是否属于当前网关。不要通过在终端打印完整 Key 来验证。</p>
+    <h3>model not found</h3>
+    <p>模型展示名不一定等于请求用的模型 ID。以网关控制台当前提供的精确模型名为准，修改后重新启动 Codex。</p>
+    <h3>短问答正常，长任务断流</h3>
+    <p>重点观察 SSE 空闲超时、上游流式事件兼容、工具调用返回和重试策略。只比较“首字很快”无法判断线路是否适合编码。</p>
+    <h3>感觉便宜，账单却很快</h3>
+    <p>不要只看标价倍率。用同一个任务对照输入、输出、缓存、重试次数和最终扣费；未完成的反复重试同样会消耗时间和额度。</p>
+
+    <h2>四、需要一个候选线路做对照？</h2>
+    <p>可以把胃袋 API 加入同一套验收，不要因为一张海报就直接扩量。先生成配置、跑完真实任务，再根据记录决定是否继续。</p>
+    <img class="poster" src="vidai-poster-v3.png" alt="胃袋 API Codex 与 Claude Code 小额实测海报，含二维码和网址">
+    <div class="result"><strong>建议的决策门槛：</strong>连续完成 3 次同类任务，工具调用闭环，账单可核对，失败时有可诊断错误；达不到就不要扩量。</div>
+
+    <h2>资料来源</h2>
+    <p class="source">配置原则参照 OpenAI 官方文档：<a href="https://learn.chatgpt.com/docs/config-file/config-advanced" target="_blank" rel="noopener">Advanced Configuration</a>。模型、网关和线路能力可能变化，请同时核对服务商控制台与实时状态。</p>
+    <p class="meta">利益披露：本文由 VidAI／胃袋AI团队维护，团队同时提供商业 API 服务。本文中的验收方法可以用于比较任意兼容线路。</p>
+
+    <div class="sticky-cta"><div><strong>先小额实测，不满意就停止。</strong><br><span>完整网址：https://api.david-ai.net</span></div><a class="primary tracked-site" href="https://api.david-ai.net/" target="_blank" rel="noopener">查看模型与实时价格 →</a></div>
+  </article></main>
+  <footer><span>胃袋AI，量大管饱可劲造。</span><span><a href="./">免费配置生成器</a> · <a href="api-trial.html">小额实测说明</a></span></footer>
+  <script>
+    const link = document.querySelector(".tracked-site");
+    const target = new URL("https://api.david-ai.net/");
+    target.searchParams.set("utm_source", new URLSearchParams(location.search).get("utm_source") || "seo");
+    target.searchParams.set("utm_medium", new URLSearchParams(location.search).get("utm_medium") || "article");
+    target.searchParams.set("utm_campaign", "codex_gateway_checklist_20261010");
+    target.searchParams.set("utm_content", "bottom_cta");
+    link.href = target.toString();
+  </script>
+</body>
+</html>

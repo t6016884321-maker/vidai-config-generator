@@ -1,5 +1,7 @@
 # VidAI 胃袋AI Codex 配置生成器
 
+- Codex API 中转验收与排错清单：https://t6016884321-maker.github.io/vidai-config-generator/codex-api-gateway-checklist.html
+
 > 面向中文 Codex 用户的免费自定义 Provider 配置生成器与排错指南。支持 macOS、Windows、Linux；页面不上传或保存 API Key。
 
 ## 核心事实
