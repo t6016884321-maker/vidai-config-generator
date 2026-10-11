@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>开源项目合作提案｜VidAI 胃袋AI</title>
+  <meta name="description" content="面向 AI 编程开源项目维护者的合作提案：真实任务验收、专属归因、用户权益和透明结算。">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .proposal-hero{max-width:920px;padding:72px 0 50px}.proposal-hero h1{font-size:clamp(42px,6.4vw,72px)}
+    .draft-badge{display:inline-flex;gap:8px;align-items:center;padding:7px 12px;border:1px solid #6f5127;border-radius:999px;background:#1c1510;color:#ffbd7d;font:800 12px ui-monospace,monospace;letter-spacing:.06em}
+    .draft-badge:before{content:"";width:7px;height:7px;border-radius:50%;background:var(--orange)}
+    .project-name{color:var(--green)}
+    .proposal-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}
+    .proposal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:22px 0 72px}
+    .proposal-grid article,.terms article{padding:26px;border:1px solid var(--line);border-radius:17px;background:var(--panel)}
+    .proposal-grid b{font:800 12px ui-monospace,monospace;color:var(--cyan)}
+    .proposal-grid h2{font-size:24px;margin:16px 0 8px}.proposal-grid p,.terms p{color:var(--muted);margin-bottom:0}
+    .integration{padding:62px 0;border-top:1px solid var(--line)}
+    .integration-box{display:grid;grid-template-columns:.8fr 1.2fr;gap:22px;align-items:start}
+    .integration-box>div{padding:28px;border:1px solid #30463a;border-radius:18px;background:linear-gradient(145deg,#101a18,#0b1118)}
+    .integration-box h3{margin:0 0 12px;font-size:28px}.integration-box ul{padding-left:20px;color:#c7d0db}.integration-box li{margin:10px 0}
+    .evidence{margin:0;padding:24px;border-left:3px solid var(--green);background:#0e1715;color:#c7d0db}
+    .terms{padding:62px 0;border-top:1px solid var(--line)}.terms-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .terms h2{margin-bottom:24px}.terms h3{font-size:22px;margin:0 0 8px}.terms strong{color:var(--green)}
+    .next-step{margin:22px 0 90px;padding:34px;border:1px solid #604323;border-radius:18px;background:#17120e}
+    .next-step h2{font-size:34px;margin:0 0 8px}.next-step p{color:#c7d0db}
+    .plain-link{color:var(--muted);font:700 13px ui-monospace,monospace;word-break:break-all}
+    @media(max-width:820px){.proposal-grid,.integration-box,.terms-grid{grid-template-columns:1fr}.proposal-hero{padding-top:52px}}
+  </style>
+</head>
+<body>
+  <div class="grid" aria-hidden="true"></div>
+  <header class="topbar"><a class="brand" href="./"><span>胃</span> VidAI · 胃袋AI</a><a class="status-link" href="https://api.david-ai.net/monitor" target="_blank" rel="noopener"><i></i> 实时线路状态</a></header>
+  <main>
+    <section class="proposal-hero">
+      <span class="draft-badge">合作提案草案 · 尚未形成合作关系</span>
+      <p class="kicker">OPEN-SOURCE PARTNER PROPOSAL</p>
+      <h1>给 <span class="project-name">开源项目</span> 用户的<br><em>API 验证与专属接入方案。</em></h1>
+      <p class="lead" id="project-lead">不购买无法归因的曝光。先用真实仓库验证兼容性，再由双方确认展示位置、用户权益和结算方式。</p>
+      <div class="proposal-actions"><a class="primary tracked-register" data-content="hero" href="#">查看真实注册流程 →</a><a class="secondary tracked-test" href="codex-api-self-test.html">免费兼容性自测</a></div>
+      <p class="plain-link" id="proposal-id">提案编号：opensource-general-202610</p>
+    </section>
+
+    <section class="proposal-grid" aria-label="合作原则">
+      <article><b>01 / VERIFY</b><h2>上线前先验收</h2><p>固定模型和真实仓库连续运行三次，记录协议、SSE、工具调用、失败恢复和实际扣费。</p></article>
+      <article><b>02 / ATTRIBUTE</b><h2>每个项目独立归因</h2><p>使用项目专属 UTM 与活动标识，按访问、注册、首充和首次成功请求回收结果。</p></article>
+      <article><b>03 / DISCLOSE</b><h2>明确披露合作</h2><p>如达成赞助或分成，将清楚标注合作关系，不伪装成第三方自发推荐。</p></article>
+    </section>
+
+    <section class="integration">
+      <p class="kicker">SUGGESTED INTEGRATION</p>
+      <h2>为 <span class="project-name">该项目</span> 建议的接入方式</h2>
+      <div class="integration-box">
+        <div>
+          <h3 id="integration-title">Provider 配置与验收入口</h3>
+          <p id="integration-copy">在用户最需要配置 API 的环节提供可复制配置、兼容性自测和真实任务验收，而不是放置一段孤立广告。</p>
+        </div>
+        <div>
+          <ul id="integration-list">
+            <li>项目专属配置教程与脱敏示例；</li>
+            <li>项目专属注册链接和转化统计；</li>
+            <li>经双方确认后的用户试用或首充权益；</li>
+            <li>经双方确认后的 CPA、充值分成或固定 Sponsor 方案。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="integration">
+      <p class="kicker">EVIDENCE BEFORE SCALE</p>
+      <h2>不是“能回复一句话”就算通过</h2>
+      <p class="evidence">最低验收范围：401 与模型名诊断、Responses API、SSE 完整性、工具调用闭环、跨文件修改、测试执行、失败后安全重连、用量与实际扣费核对。任何 API Key、私有代码或个人信息都不进入公开记录。</p>
+      <div class="proposal-actions"><a class="secondary tracked-checklist" href="codex-api-gateway-checklist.html">查看 15 分钟验收清单</a><a class="secondary" href="product.html">查看产品事实与披露</a></div>
+    </section>
+
+    <section class="terms">
+      <p class="kicker">COMMERCIAL TERMS</p>
+      <h2>合作前必须共同确认</h2>
+      <div class="terms-grid">
+        <article><h3>用户权益</h3><p>试用额度、首充优惠或双方奖励须以站内实际可配置能力为准，<strong>本提案不预先虚构优惠码</strong>。</p></article>
+        <article><h3>结算方式</h3><p>可以讨论固定 Sponsor、CPA 或充值分成；比例、周期、退款与作弊订单处理须书面确认。</p></article>
+        <article><h3>内容位置</h3><p>README、文档、Provider 预设或教程视频由项目方自主选择，不要求在 Issue 中发布广告。</p></article>
+        <article><h3>退出机制</h3><p>兼容性不达标、数据无法归因或用户反馈异常时，可立即停止展示并复盘。</p></article>
+      </div>
+    </section>
+
+    <section class="next-step">
+      <h2>下一步：先完成一次联合验收。</h2>
+      <p>如项目方有固定 Sponsor 报价，也可直接提供展示位置、周期和历史点击范围。双方确认前，本页面只是一份提案，不代表项目方认可或推荐 VidAI。</p>
+      <div class="proposal-actions"><a class="primary tracked-register" data-content="bottom" href="#">打开注册与小额验证 →</a><a class="secondary" href="https://t.me/ngjiabi_api" target="_blank" rel="noopener">联系 VidAI 支持</a></div>
+    </section>
+  </main>
+  <footer><span>VidAI／胃袋AI团队维护</span><span>本页为合作提案草案，不构成既有合作背书。</span></footer>
+  <script>
+    const projects = {
+      ccswitch: {
+        name: 'CC Switch',
+        source: 'partner_ccswitch',
+        id: 'opensource-ccswitch-202610',
+        title: 'Provider 预设 + 一键切换后的验收',
+        lead: '面向需要在 Codex、Claude Code、OpenCode 等 Provider 间切换的用户：配置完成后立刻验证协议、工具调用与真实扣费。',
+        copy: '建议将胃袋 API 作为候选 Provider 提案；先由维护者独立验收，达标后再讨论预设、文档或 Sponsor 展示。'
+      },
+      cliproxyapi: {
+        name: 'CLIProxyAPI',
+        source: 'partner_cliproxyapi',
+        id: 'opensource-cliproxyapi-202610',
+        title: '上游兼容验证 + README Sponsor',
+        lead: '面向需要 OpenAI、Claude 与 Codex 兼容协议的开发者：用固定任务验证上游线路能否稳定完成代理闭环。',
+        copy: '建议先做 Responses、SSE、工具调用和重连测试，再讨论 README Sponsor、专属注册链接及用户权益。'
+      },
+      zcf: {
+        name: 'ZCF',
+        source: 'partner_zcf',
+        id: 'opensource-zcf-202610',
+        title: '零配置安装后的真实任务试跑',
+        lead: '面向希望快速完成 Claude Code / Codex 配置的用户：安装结束后直接进入兼容性自测与真实仓库三连测。',
+        copy: '建议提供 ZCF 专属配置说明、试跑入口与活动标识；通过独立数据判断是否值得长期展示。'
+      },
+      claude_code_hub: {
+        name: 'Claude Code Hub',
+        source: 'partner_claude_code_hub',
+        id: 'opensource-claude-code-hub-202610',
+        title: '多上游调度场景的线路验收',
+        lead: '面向需要负载均衡、用户管理和使用统计的团队：先核对上游线路质量、账单与失败恢复，再考虑扩量。',
+        copy: '建议在供应商管理场景中完成独立验收；达标后再讨论 Sponsor 位、专属链接与团队合作。'
+      }
+    };
+    const query = new URLSearchParams(location.search);
+    const key = query.get('project') || 'general';
+    const current = projects[key] || {
+      name: 'AI 编程开源项目', source: 'partner_opensource', id: 'opensource-general-202610',
+      title: 'Provider 配置与验收入口',
+      lead: '不购买无法归因的曝光。先用真实仓库验证兼容性，再由双方确认展示位置、用户权益和结算方式。',
+      copy: '在用户最需要配置 API 的环节提供可复制配置、兼容性自测和真实任务验收，而不是放置一段孤立广告。'
+    };
+    document.querySelectorAll('.project-name').forEach(node => node.textContent = current.name);
+    document.querySelector('#project-lead').textContent = current.lead;
+    document.querySelector('#integration-title').textContent = current.title;
+    document.querySelector('#integration-copy').textContent = current.copy;
+    document.querySelector('#proposal-id').textContent = `提案编号：${current.id}`;
+    document.title = `${current.name} 合作提案｜VidAI 胃袋AI`;
+    const campaign = current.id;
+    const decorate = (selector, path, content) => document.querySelectorAll(selector).forEach((link, index) => {
+      const target = new URL(path, location.href);
+      target.searchParams.set('utm_source', current.source);
+      target.searchParams.set('utm_medium', 'partner_proposal');
+      target.searchParams.set('utm_campaign', campaign);
+      target.searchParams.set('utm_content', link.dataset.content || content || (index ? 'bottom' : 'hero'));
+      link.href = target.toString();
+    });
+    document.querySelectorAll('.tracked-register').forEach((link, index) => {
+      const target = new URL('https://api.david-ai.net/register');
+      target.searchParams.set('aff', '5SM2BCS7ML2H');
+      target.searchParams.set('utm_source', current.source);
+      target.searchParams.set('utm_medium', 'partner_proposal');
+      target.searchParams.set('utm_campaign', campaign);
+      target.searchParams.set('utm_content', link.dataset.content || (index ? 'bottom' : 'hero'));
+      link.href = target.toString(); link.target = '_blank'; link.rel = 'noopener';
+    });
+    decorate('.tracked-test', 'codex-api-self-test.html', 'self_test');
+    decorate('.tracked-checklist', 'codex-api-gateway-checklist.html', 'checklist');
+  </script>
+</body>
+</html>
