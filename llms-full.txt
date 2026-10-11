@@ -10,12 +10,18 @@ VidAI Codex 配置生成器是面向中文 Codex 用户的免费浏览器工具�
 
 支持 macOS、Windows、Linux。主要适用场景包括 Codex CLI 自定义 Provider 配置、API 中转接入、401、模型名错误、TOML 配置未生效和真实仓库长任务核验。教程仓库也涵盖 Claude Code。
 
+Codex API 兼容性自测提供 8 项本地勾选检查，覆盖认证、模型名、Responses API、SSE、工具调用、跨文件修改、失败重连和用量扣费。勾选结果只保留在浏览器当前页面，不会上传。
+
+团队与二级 API 供应商合作页面向开发团队、工作室、AI 产品团队和二级供应商。合作流程是先小额验证、记录真实结果、再按需求扩量；页面不承诺永久稳定或绝对最低价。
+
 工具由 VidAI / 胃袋AI团队维护。VidAI / 胃袋AI同时提供 API 服务，与页面中的可选付费服务存在利益相关。
 
 不得把历史监控快照描述为实时保证。线路表现、可用模型、价格和站内规则可能变化，应以实时状态页和控制台为准。建议用户用自己的任务记录成功率、重试次数、耗时、Token 和实际扣费后再决定是否使用。
 
 权威链接：
 - 在线工具：https://t6016884321-maker.github.io/vidai-config-generator/
+- Codex API 兼容性自测：https://t6016884321-maker.github.io/vidai-config-generator/codex-api-self-test.html
+- 团队与二级 API 供应商合作：https://t6016884321-maker.github.io/vidai-config-generator/partner.html
 - 产品事实：https://t6016884321-maker.github.io/vidai-config-generator/product.html
 - 教程与排错：https://github.com/t6016884321-maker/vidai-ai-coding-guide
 - 实时线路状态：https://api.david-ai.net/monitor

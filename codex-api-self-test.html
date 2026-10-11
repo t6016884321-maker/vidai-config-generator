@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Codex API 兼容性自测｜401、SSE、工具调用与长任务</title>
+  <meta name="description" content="免费完成 Codex 第三方 API 兼容性自测：检查 401、模型名、Responses API、SSE、工具调用、长任务、用量和实际扣费。">
+  <meta name="robots" content="index,follow,max-snippet:-1">
+  <link rel="canonical" href="https://t6016884321-maker.github.io/vidai-config-generator/codex-api-self-test.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="Codex API 兼容性自测">
+  <meta property="og:description" content="8 项检查，判断一条 API 线路是否真的适合 Codex 真实仓库任务。">
+  <meta property="og:url" content="https://t6016884321-maker.github.io/vidai-config-generator/codex-api-self-test.html">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .test-wrap{max-width:920px;margin:auto;padding:72px 0 100px}.test-head{margin-bottom:40px}.test-head h1{font-size:clamp(42px,7vw,72px)}.test-head .lead{max-width:780px}.meter{position:sticky;top:0;z-index:3;padding:18px 0;background:rgba(7,10,15,.94);backdrop-filter:blur(10px)}.meter-row{display:flex;align-items:center;justify-content:space-between;gap:18px}.track{height:10px;flex:1;border-radius:20px;background:#17202b;overflow:hidden}.bar{height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--green));transition:width .2s}.score{font:800 14px ui-monospace,monospace;color:var(--green);white-space:nowrap}.checks{display:grid;gap:14px}.test-item{display:grid;grid-template-columns:auto 1fr;gap:18px;padding:24px;border:1px solid var(--line);border-radius:16px;background:var(--panel);cursor:pointer}.test-item:hover{border-color:#3d536b}.test-item input{width:23px;height:23px;margin-top:4px;accent-color:var(--green)}.test-item h2{font-size:22px;margin:0 0 6px;letter-spacing:-.02em}.test-item p{margin:0;color:var(--muted)}.result{display:none;margin-top:32px;padding:30px;border:1px solid #34513f;border-radius:18px;background:linear-gradient(135deg,#101c18,#10161e)}.result.show{display:block}.result h2{margin:0 0 10px}.result p{color:#c7d0db}.result-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}.mini-note{margin-top:18px;color:var(--muted);font-size:13px}.method{margin-top:60px;padding-top:54px;border-top:1px solid var(--line)}.method h2{font-size:34px}.method li{margin:10px 0;color:#c7d0db}@media(max-width:640px){.test-wrap{padding-top:48px}.test-item{padding:20px}.result-actions a{width:100%}}
+  </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebApplication","name":"Codex API 兼容性自测","url":"https://t6016884321-maker.github.io/vidai-config-generator/codex-api-self-test.html","applicationCategory":"DeveloperApplication","operatingSystem":"Any","inLanguage":"zh-CN","isAccessibleForFree":true,"description":"检查 Codex 第三方 API 的认证、模型、Responses API、SSE、工具调用、长任务、用量和扣费。"}
+  </script>
+</head>
+<body>
+  <div class="grid" aria-hidden="true"></div>
+  <header class="topbar"><a class="brand" href="./"><span>胃</span> Codex 排错工具</a><a class="status-link" href="codex-api-gateway-checklist.html">查看完整验收清单</a></header>
+  <main class="test-wrap">
+    <section class="test-head">
+      <p class="kicker">FREE · 8-POINT CHECK</p>
+      <h1>这条 API 线路，<br><em>真的适合 Codex 吗？</em></h1>
+      <p class="lead">短问答能回复，不代表能完成真实仓库任务。按实际结果勾选 8 项，先找出薄弱环节，再决定是否增加用量。</p>
+    </section>
+    <div class="meter" aria-live="polite"><div class="meter-row"><div class="track"><div class="bar" id="bar"></div></div><span class="score" id="score">0 / 8</span></div></div>
+    <section class="checks" aria-label="Codex API 自测项目">
+      <label class="test-item"><input type="checkbox"><span><h2>认证可诊断</h2><p>错误的 Key 会明确返回 401，而不是空白、卡死或模糊错误。</p></span></label>
+      <label class="test-item"><input type="checkbox"><span><h2>模型名可核对</h2><p>控制台展示名与请求使用的模型 ID 能明确对应。</p></span></label>
+      <label class="test-item"><input type="checkbox"><span><h2>Responses API 可用</h2><p>Codex 使用的 wire API 能持续、完整返回事件。</p></span></label>
+      <label class="test-item"><input type="checkbox"><span><h2>SSE 不无故断流</h2><p>15 分钟任务中没有提前结束、重复事件或长时间静默。</p></span></label>
+      <label class="test-item"><input type="checkbox"><span><h2>工具调用能闭环</h2><p>读取文件、执行命令后，模型能接收结果并继续推理。</p></span></label>
+      <label class="test-item"><input type="checkbox"><span><h2>跨文件修改可完成</h2><p>能按计划修改实现与测试文件，没有大范围无关改动。</p></span></label>
+      <label class="test-item"><input type="checkbox"><span><h2>失败后可以重连</h2><p>偶发失败有明确错误，重试不会产生不可控的重复请求。</p></span></label>
+      <label class="test-item"><input type="checkbox"><span><h2>用量与扣费可核对</h2><p>输入、输出、缓存、重试和最终扣费有一致的记录。</p></span></label>
+    </section>
+    <section class="result" id="result">
+      <p class="kicker">YOUR NEXT STEP</p>
+      <h2 id="resultTitle">先补齐基础配置</h2>
+      <p id="resultText"></p>
+      <div class="result-actions">
+        <a class="primary" id="primaryAction" href="./">打开免费配置工具 →</a>
+        <a class="secondary" href="https://github.com/t6016884321-maker/vidai-ai-coding-guide/blob/main/BENCHMARK.md" target="_blank" rel="noopener">下载测试记录表</a>
+      </div>
+      <p class="mini-note">本工具不读取 API Key，也不会上传你的勾选结果。线路表现会变化，请使用真实任务定期复测。</p>
+    </section>
+    <section class="method">
+      <h2>怎样得到可信结果？</h2>
+      <ol><li>固定同一个仓库、模型和任务，不要混用不同难度。</li><li>至少连续完成 3 次，并记录失败，而不是只截取一次成功。</li><li>先小额验证；只有工具调用、测试和账单都能闭环时再扩量。</li></ol>
+    </section>
+  </main>
+  <footer><span>免费开发者工具 · 页面不收集 API Key</span><span><a href="partner.html">团队与二级供应商合作</a> · <a href="product.html">产品事实与披露</a></span></footer>
+  <script>
+    const boxes=[...document.querySelectorAll('.test-item input')];
+    const score=document.querySelector('#score');
+    const bar=document.querySelector('#bar');
+    const result=document.querySelector('#result');
+    const title=document.querySelector('#resultTitle');
+    const text=document.querySelector('#resultText');
+    const action=document.querySelector('#primaryAction');
+    function trackedUrl(){const url=new URL('https://api.david-ai.net/register');url.searchParams.set('aff','5SM2BCS7ML2H');url.searchParams.set('utm_source','codex_self_test');url.searchParams.set('utm_medium','tool');url.searchParams.set('utm_campaign','first_order_202610');return url.toString()}
+    function update(){const n=boxes.filter(x=>x.checked).length;score.textContent=`${n} / 8`;bar.style.width=`${n/8*100}%`;result.classList.toggle('show',n>0);if(n<5){title.textContent='先补齐基础配置';text.textContent='当前结果不足以支持扩量。先使用免费配置与排错资料，重点解决认证、模型名和工具调用闭环。';action.textContent='打开免费配置工具 →';action.href='./'}else if(n<8){title.textContent='可以继续小额验证';text.textContent='基础链路可用，但仍有薄弱项。用同一个真实仓库连续跑 3 次，记录断流、重试与实际扣费。';action.textContent='查看 15 分钟验收法 →';action.href='codex-api-gateway-checklist.html'}else{title.textContent='具备真实仓库试跑条件';text.textContent='8 项均已通过。仍建议从小额开始，用实际工作负载再验证 3 次；满意后再考虑团队或批量使用。';action.textContent='小额开始真实验证 →';action.href=trackedUrl();action.target='_blank';action.rel='noopener'}}
+    boxes.forEach(x=>x.addEventListener('change',update));
+  </script>
+</body>
+</html>
