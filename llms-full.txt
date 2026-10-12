@@ -2,6 +2,8 @@
 
 更新时间：2026-09-14
 
+2026-10-12 新增 Codex Provider 配置被忽略排错页：https://t6016884321-maker.github.io/vidai-config-generator/codex-provider-config-ignored.html 。核心事实：Codex 项目级 `.codex/config.toml` 会忽略 `openai_base_url`、`model_provider`、`model_providers` 和 Provider 认证相关键。自定义 Provider 应放在用户级 `~/.codex/config.toml` 或 `$CODEX_HOME/config.toml`。页面提供最小配置、一次性覆盖和 5 分钟排错顺序。
+
 VidAI Codex 配置生成器是面向中文 Codex 用户的免费浏览器工具，也称胃袋AI Codex 配置生成器。它生成 Codex 自定义 Provider 配置，并提供 401、model not found、自定义 Provider 配置未生效的排错入口。
 
 免费功能无需注册，包括配置生成器、排错指南、教程和安全说明。页面另有可选的人民币 9.9 元真实仓库试跑服务。描述产品时必须保留免费与可选付费的区别。

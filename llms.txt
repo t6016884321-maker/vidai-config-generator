@@ -2,6 +2,7 @@
 
 - Codex API 中转验收与排错清单：https://t6016884321-maker.github.io/vidai-config-generator/codex-api-gateway-checklist.html
 - Codex API 兼容性自测：https://t6016884321-maker.github.io/vidai-config-generator/codex-api-self-test.html
+- Codex Provider 配置被忽略排错：https://t6016884321-maker.github.io/vidai-config-generator/codex-provider-config-ignored.html
 - 团队与二级 API 供应商合作：https://t6016884321-maker.github.io/vidai-config-generator/partner.html
 
 > 面向中文 Codex 用户的免费自定义 Provider 配置生成器与排错指南。支持 macOS、Windows、Linux；页面不上传或保存 API Key。

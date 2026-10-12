@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Codex 配了第三方 API 为什么不生效？项目配置与 Provider 排错</title>
+  <meta name="description" content="修改 .codex/config.toml 后 Codex 仍走默认线路？解释项目配置为何忽略 model_provider、model_providers 和 openai_base_url，并给出 5 分钟排错步骤。">
+  <meta name="keywords" content="Codex第三方API不生效,Codex model_provider,Codex model_providers,Codex config.toml,Codex自定义Provider,Codex API中转配置">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+  <link rel="canonical" href="https://t6016884321-maker.github.io/vidai-config-generator/codex-provider-config-ignored.html">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="Codex 配了第三方 API，为什么仍走默认线路？">
+  <meta property="og:description" content="先检查配置层级，再判断 API 线路。附最小配置和 5 分钟排错顺序。">
+  <meta property="og:image" content="https://t6016884321-maker.github.io/vidai-config-generator/vidai-poster-v3.png">
+  <meta property="og:url" content="https://t6016884321-maker.github.io/vidai-config-generator/codex-provider-config-ignored.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    main{max-width:920px;padding:68px 24px 110px}.article{padding:clamp(24px,5vw,48px);border:1px solid var(--line);border-radius:22px;background:rgba(14,20,29,.91)}
+    h1{font-size:clamp(38px,6vw,68px);line-height:1.05}.deck{font-size:20px;color:#c7d0db;line-height:1.75}.meta{color:var(--muted);font-size:14px}
+    h2{font-size:30px;margin:52px 0 14px}p,li{color:#c7d0db;line-height:1.8}li{margin:8px 0}.callout,.decision{padding:22px 26px;border:1px solid var(--line);border-radius:14px;background:#0b1017}.callout{border-left:3px solid var(--orange)}
+    code{color:var(--green)}pre{overflow:auto;padding:22px;border:1px solid var(--line);border-radius:12px;background:#05080d;color:#d7fdf2;line-height:1.55}.steps{counter-reset:item;list-style:none;padding:0}.steps li{counter-increment:item;padding:15px 0 15px 54px;border-bottom:1px solid var(--line);position:relative}.steps li:before{content:counter(item);position:absolute;left:0;top:11px;display:grid;place-items:center;width:34px;height:34px;border:1px solid var(--green);border-radius:50%;color:var(--green);font-weight:800}
+    .article a{color:var(--cyan)}.sticky-cta{display:flex;gap:18px;align-items:center;justify-content:space-between;margin-top:50px;padding:26px;border:1px solid var(--green);border-radius:16px;background:rgba(58,255,174,.06)}@media(max-width:700px){.sticky-cta{display:block}.sticky-cta .primary{display:block;margin-top:18px;text-align:center}}
+  </style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Codex 配了第三方 API，为什么仍走默认线路？","datePublished":"2026-10-12","dateModified":"2026-10-12","inLanguage":"zh-CN","image":"https://t6016884321-maker.github.io/vidai-config-generator/vidai-poster-v3.png","author":{"@type":"Organization","name":"VidAI 胃袋AI"},"publisher":{"@type":"Organization","name":"VidAI 胃袋AI","url":"https://api.david-ai.net/"},"description":"解释 Codex 项目配置为何忽略自定义 Provider，并提供可复现的排错步骤。"}</script>
+</head>
+<body>
+  <div class="grid" aria-hidden="true"></div>
+  <header class="topbar"><a class="brand" href="./"><span>胃</span> VidAI · 胃袋AI</a><a class="status-link" href="https://api.david-ai.net/monitor" target="_blank" rel="noopener"><i></i> 实时线路状态</a></header>
+  <main><article class="article">
+    <p class="kicker">CODEX CONFIG · HIGH-INTENT TROUBLESHOOTING</p>
+    <h1>Codex 配了第三方 API，<br><em>为什么仍走默认线路？</em></h1>
+    <p class="deck">先别急着更换 API。很多“线路不生效”其实是配置层级放错了：项目级配置会主动忽略 Provider 和认证相关键。</p>
+    <p class="meta">更新：2026-10-12 · 依据 OpenAI 官方 Codex Advanced Configuration</p>
+    <div class="callout"><strong>最常见原因：</strong>你把 <code>model_provider</code>、<code>model_providers</code> 或 <code>openai_base_url</code> 写进了仓库的 <code>.codex/config.toml</code>。这些键会被忽略并触发启动警告。</div>
+    <h2>正确位置：用户级配置</h2>
+    <p>自定义 Provider 应放在 <code>~/.codex/config.toml</code>。如果改过 <code>CODEX_HOME</code>，实际位置是 <code>$CODEX_HOME/config.toml</code>。</p>
+    <pre><code>model = "从控制台复制的当前可用模型名"
+model_provider = "your_gateway"
+
+[model_providers.your_gateway]
+name = "Your Gateway"
+base_url = "https://你的网关地址/v1"
+env_key = "OPENAI_API_KEY"
+wire_api = "responses"</code></pre>
+    <p><code>env_key</code> 填环境变量名称，不是真实 API Key。密钥不要放进网页、截图、公开仓库、Issue 或群聊。</p>
+    <h2>5 分钟排错顺序</h2>
+    <ol class="steps"><li>确认文件是 <code>~/.codex/config.toml</code> 或 <code>$CODEX_HOME/config.toml</code>。</li><li>从项目 `.codex/config.toml` 移除 Provider 与认证键。</li><li>检查顶层 <code>model_provider</code> 与 Provider 表 ID 是否完全一致。</li><li>使用控制台当前模型名，修改后重新启动 Codex。</li><li>先做小任务，再用同一真实仓库任务连续跑 3 次。</li></ol>
+    <h2>用一次性覆盖快速分层</h2>
+    <p>Codex 支持使用专用参数或 <code>--config</code> 覆盖单次运行。先临时指定模型：</p>
+    <pre><code>codex --model "当前可用模型名"</code></pre>
+    <p>如果单次覆盖生效，常规启动却仍走旧设置，优先检查配置文件位置、层级与拼写。如果二者都失败，再检查模型名、鉴权、Responses API 和网关兼容性。</p>
+    <h2>什么时候才应怀疑 API 线路？</h2>
+    <div class="decision"><ul><li>Responses API 无法建立或事件结构不完整；</li><li>SSE 长任务频繁无错误断流；</li><li>工具结果返回后无法继续；</li><li>失败重试造成重复扣费或用量无法核对；</li><li>同一个小任务连续 3 次无法稳定完成。</li></ul></div>
+    <h2>免费自测，再决定是否充值</h2>
+    <p>先使用 8 项兼容性自测区分配置问题和线路问题。需要候选线路作对照时，可以把 VidAI／胃袋 API 放入同一套测试，但不要未经验证直接扩量。</p>
+    <p class="meta">利益披露：本文由 VidAI／胃袋AI团队维护，团队同时提供商业 API 服务。方法可用于比较任意兼容 Provider。</p>
+    <p>官方依据：<a href="https://learn.chatgpt.com/docs/config-file/config-advanced" target="_blank" rel="noopener">OpenAI Codex Advanced Configuration</a></p>
+    <div class="sticky-cta"><div><strong>先排配置，再测线路。</strong><br><span>8 项自测免费，不需要提交 API Key。</span></div><a class="primary tracked-test" href="codex-api-self-test.html">开始兼容性自测 →</a></div>
+  </article></main>
+  <footer><span>胃袋AI，量大管饱可劲造。</span><span><a href="./">配置生成器</a> · <a href="codex-api-gateway-checklist.html">15 分钟验收</a></span></footer>
+  <script>const p=new URLSearchParams(location.search),t=new URL("codex-api-self-test.html",location.href);t.searchParams.set("utm_source",p.get("utm_source")||"seo");t.searchParams.set("utm_medium",p.get("utm_medium")||"article");t.searchParams.set("utm_campaign","provider_config_ignored_20261012");t.searchParams.set("utm_content","bottom_self_test");document.querySelector(".tracked-test").href=t.toString();</script>
+</body>
+</html>
