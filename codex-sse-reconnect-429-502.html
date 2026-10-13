@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Codex 正在重新连接 3/5？429、502 与 SSE 断流排查</title>
+  <meta name="description" content="Codex 反复显示正在重新连接 3/5？先分清 429 限流、502 网关错误与 SSE 空闲超时，再用同一真实仓库任务连续验证。">
+  <meta name="keywords" content="Codex正在重新连接3/5,Codex 429,Codex 502,Codex SSE断流,Codex stream_max_retries,Codex API中转稳定性">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+  <link rel="canonical" href="https://t6016884321-maker.github.io/vidai-config-generator/codex-sse-reconnect-429-502.html">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="Codex 一直“正在重新连接 3/5”？">
+  <meta property="og:description" content="先分清 429、502 和 SSE 空闲超时。附 15 分钟可复现验收法。">
+  <meta property="og:image" content="https://t6016884321-maker.github.io/vidai-config-generator/vidai-poster-v3.png">
+  <meta property="og:url" content="https://t6016884321-maker.github.io/vidai-config-generator/codex-sse-reconnect-429-502.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    main{max-width:920px;padding:68px 24px 110px}.article{padding:clamp(24px,5vw,48px);border:1px solid var(--line);border-radius:22px;background:rgba(14,20,29,.91)}
+    h1{font-size:clamp(38px,6vw,68px);line-height:1.05}.deck{font-size:20px;color:#c7d0db;line-height:1.75}.meta{color:var(--muted);font-size:14px}
+    h2{font-size:30px;margin:52px 0 14px}h3{font-size:21px;margin-top:28px}p,li,td,th{color:#c7d0db;line-height:1.8}li{margin:8px 0}.callout,.decision{padding:22px 26px;border:1px solid var(--line);border-radius:14px;background:#0b1017}.callout{border-left:3px solid var(--orange)}
+    code{color:var(--green)}pre{overflow:auto;padding:22px;border:1px solid var(--line);border-radius:12px;background:#05080d;color:#d7fdf2;line-height:1.55}table{width:100%;border-collapse:collapse;margin:24px 0}th,td{text-align:left;padding:13px;border-bottom:1px solid var(--line)}th{color:var(--green)}
+    .article a{color:var(--cyan)}.sticky-cta{display:flex;gap:18px;align-items:center;justify-content:space-between;margin-top:50px;padding:26px;border:1px solid var(--green);border-radius:16px;background:rgba(58,255,174,.06)}.actions{display:flex;gap:12px;flex-wrap:wrap}.secondary{display:inline-block;padding:13px 18px;border:1px solid var(--line);border-radius:10px;color:var(--cyan);text-decoration:none}@media(max-width:700px){.sticky-cta{display:block}.actions{margin-top:18px}.actions a{display:block;width:100%;text-align:center}}
+  </style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Codex 一直正在重新连接 3/5？先分清 429、502 和 SSE 空闲超时","datePublished":"2026-10-13","dateModified":"2026-10-13","inLanguage":"zh-CN","image":"https://t6016884321-maker.github.io/vidai-config-generator/vidai-poster-v3.png","author":{"@type":"Organization","name":"VidAI 胃袋AI"},"publisher":{"@type":"Organization","name":"VidAI 胃袋AI","url":"https://api.david-ai.net/"},"description":"区分 Codex 的 429 限流、502 网关错误与 SSE 空闲超时，并用真实仓库任务验证 API 稳定性。"}</script>
+</head>
+<body>
+  <div class="grid" aria-hidden="true"></div>
+  <header class="topbar"><a class="brand" href="./"><span>胃</span> VidAI · 胃袋AI</a><a class="status-link" href="https://api.david-ai.net/monitor" target="_blank" rel="noopener"><i></i> 实时线路状态</a></header>
+  <main><article class="article">
+    <p class="kicker">CODEX STREAM · 429 / 502 / SSE</p>
+    <h1>一直“正在重新连接 3/5”？<br><em>先别急着换 Key。</em></h1>
+    <p class="deck">这行提示只是结果，不是根因。先找到第一次失败的状态码，再区分限流、网关异常和流式连接超时。</p>
+    <p class="meta">更新：2026-10-13 · 依据 OpenAI 官方 Codex Advanced Configuration</p>
+    <div class="callout"><strong>先做一件事：</strong>记录第一次异常的时间、状态码、模型、任务类型和 request ID。后续的重复报错通常只是首次失败触发的连锁重试。</div>
+    <h2>三类故障，三个方向</h2>
+    <table><thead><tr><th>现象</th><th>优先判断</th><th>第一动作</th></tr></thead><tbody>
+      <tr><td><code>429</code></td><td>速率、并发或额度限制</td><td>停止新增并发，检查限流窗口</td></tr>
+      <tr><td><code>502 / 503</code></td><td>网关或上游无有效响应</td><td>固定同一任务做分时段对照</td></tr>
+      <tr><td>固定时长断流</td><td>SSE 被中间层提前关闭</td><td>检查缓冲、透传和空闲超时</td></tr>
+    </tbody></table>
+    <h2>“3/5”不是任务进度</h2>
+    <p>Codex 的自定义 Provider 可以分别设置普通 HTTP 请求重试、SSE 流重试和流空闲超时。它们用于短暂故障后的恢复，不能修复错误模型名、无权限 Key 或不兼容接口。</p>
+    <pre><code>[model_providers.your_gateway]
+name = "Your Gateway"
+base_url = "https://你的网关地址/v1"
+env_key = "OPENAI_API_KEY"
+wire_api = "responses"
+request_max_retries = 4
+stream_max_retries = 10
+stream_idle_timeout_ms = 300000</code></pre>
+    <p>不要盲目把重试次数调到很高。错误请求可能因此持续更久，并放大并发和费用。</p>
+    <h2>429：先阻止重试风暴</h2>
+    <ol><li>暂停新的 Agent、终端和 CI 任务；</li><li>检查余额、账户额度和服务商限流规则；</li><li>等待一个限流窗口后，只跑一个小任务；</li><li>确认是否有后台任务共用同一个 Key；</li><li>恢复后再逐步增加并发。</li></ol>
+    <h2>502 / 503：做三组对照</h2>
+    <div class="decision"><ul><li><strong>同一网络、不同时间：</strong>判断是否为瞬时上游故障；</li><li><strong>同一 Provider、不同模型：</strong>判断是否为单模型路由或容量问题；</li><li><strong>同一模型、短任务与长任务：</strong>判断是否为 SSE 长连接或代理超时。</li></ul></div>
+    <p>一次只改变一个变量。如果每次都在接近 60 秒、100 秒或 5 分钟时断开，固定时长本身就是中间层超时的重要线索。</p>
+    <h2>能聊天，不代表能跑真实仓库</h2>
+    <p>Codex 会持续接收流式事件，还会多次读取文件、执行工具并回传结果。至少要验证 Responses API、SSE 持续透传、工具调用闭环、失败重连和用量扣费；一次短问答成功不足以证明稳定。</p>
+    <h2>15 分钟可复现验收</h2>
+    <ol><li>固定同一个仓库、模型和小型跨文件任务；</li><li>连续执行 3 次，不在中途改变参数；</li><li>记录完成率、重连次数、首响应、总耗时和实际扣费；</li><li>再一次只改一个参数，重新做同样三次测试。</li></ol>
+    <p class="meta">利益披露：本文由 VidAI／胃袋AI团队维护，团队同时提供商业 API 服务。方法可用于比较任意兼容 Provider。</p>
+    <p>官方依据：<a href="https://learn.chatgpt.com/docs/config-file/config-advanced" target="_blank" rel="noopener">OpenAI Codex Advanced Configuration</a></p>
+    <div class="sticky-cta"><div><strong>先免费排错，再决定是否换线路。</strong><br><span>自测不要求提交 API Key；候选线路只建议小额对照。</span></div><div class="actions"><a class="primary tracked-test" href="codex-api-self-test.html">开始兼容性自测 →</a><a class="secondary tracked-api" href="https://api.david-ai.net/">小额测试胃袋 API</a></div></div>
+  </article></main>
+  <footer><span>胃袋AI，量大管饱可劲造。</span><span><a href="./">配置生成器</a> · <a href="codex-api-gateway-checklist.html">15 分钟验收</a></span></footer>
+  <script>const p=new URLSearchParams(location.search),campaign="codex_sse_reconnect_20261013";for(const [sel,raw,content] of [[".tracked-test","codex-api-self-test.html","bottom_self_test"],[".tracked-api","https://api.david-ai.net/","bottom_api_trial"]]){const u=new URL(raw,location.href);u.searchParams.set("utm_source",p.get("utm_source")||"seo");u.searchParams.set("utm_medium",p.get("utm_medium")||"article");u.searchParams.set("utm_campaign",campaign);u.searchParams.set("utm_content",content);document.querySelector(sel).href=u.toString()}</script>
+</body>
+</html>
