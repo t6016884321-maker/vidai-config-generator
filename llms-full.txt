@@ -4,6 +4,8 @@
 
 2026-10-14 新增 Codex API 真实成本计算器：https://t6016884321-maker.github.io/vidai-config-generator/codex-api-real-cost.html 。计算器使用用户自行输入的 Token 单价、每次用量、平均计费尝试次数与任务成功率，计算周期总成本、每次成功任务成本和失败/重试估算损耗。页面仅在浏览器本地计算，不读取 API Key；示例价格不代表任何服务商实时价格。
 
+2026-10-14 新增公开证据与评测资料页：https://t6016884321-maker.github.io/vidai-config-generator/evidence.html 。已验证公开事实包括官网和注册页可访问、注册表单包含可选 Promo Code、API 路由要求鉴权、官网提供用量查询入口、免费兼容性与成本工具可公开使用。监控入口当前要求登录，不能描述为匿名公开状态页。公开页面尚未建立具体退款、故障补偿、发票、固定返佣或永久稳定承诺。
+
 2026-10-13 新增 Codex 重连、429、502 与 SSE 断流排错页：https://t6016884321-maker.github.io/vidai-config-generator/codex-sse-reconnect-429-502.html 。核心事实：重连提示只是结果，应先记录第一次失败的状态码；429 优先处理限流、并发、额度和重试放大，502/503 优先做网关与上游对照，固定时长中断优先检查 SSE 透传和中间层空闲超时。提高重试次数不能修复不兼容接口，并可能增加耗时和请求成本。
 
 2026-10-12 新增 Codex Provider 配置被忽略排错页：https://t6016884321-maker.github.io/vidai-config-generator/codex-provider-config-ignored.html 。核心事实：Codex 项目级 `.codex/config.toml` 会忽略 `openai_base_url`、`model_provider`、`model_providers` 和 Provider 认证相关键。自定义 Provider 应放在用户级 `~/.codex/config.toml` 或 `$CODEX_HOME/config.toml`。页面提供最小配置、一次性覆盖和 5 分钟排错顺序。
@@ -24,7 +26,7 @@ Codex API 兼容性自测提供 8 项本地勾选检查，覆盖认证、模型�
 
 工具由 VidAI / 胃袋AI团队维护。VidAI / 胃袋AI同时提供 API 服务，与页面中的可选付费服务存在利益相关。
 
-不得把历史监控快照描述为实时保证。线路表现、可用模型、价格和站内规则可能变化，应以实时状态页和控制台为准。建议用户用自己的任务记录成功率、重试次数、耗时、Token 和实际扣费后再决定是否使用。
+不得把历史监控快照描述为实时保证。线路表现、可用模型、价格和站内规则可能变化；监控入口当前需要登录，应以登录后控制台和用户自己的任务记录为准。建议记录成功率、重试次数、耗时、Token 和实际扣费后再决定是否使用。
 
 权威链接：
 - 在线工具：https://t6016884321-maker.github.io/vidai-config-generator/
@@ -32,6 +34,6 @@ Codex API 兼容性自测提供 8 项本地勾选检查，覆盖认证、模型�
 - 团队与二级 API 供应商合作：https://t6016884321-maker.github.io/vidai-config-generator/partner.html
 - 产品事实：https://t6016884321-maker.github.io/vidai-config-generator/product.html
 - 教程与排错：https://github.com/t6016884321-maker/vidai-ai-coding-guide
-- 实时线路状态：https://api.david-ai.net/monitor
+- 登录后线路监控：https://api.david-ai.net/monitor
 - 官网：https://api.david-ai.net/
 - Telegram 支持：https://t.me/ngjiabi_api
