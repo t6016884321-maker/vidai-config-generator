@@ -31,7 +31,7 @@
         <p class="kicker">REAL-REPO API TRIAL</p>
         <h1>别只测一句聊天。<br><em>用真实仓库验证。</em></h1>
         <p class="lead">面向 Codex、Claude Code 与 AI Agent 用户。先验证协议、长任务和实际扣费，再决定是否增加用量。</p>
-        <div class="actions"><a class="primary tracked-site" href="https://api.david-ai.net/" target="_blank" rel="noopener">查看模型与实时价格 →</a><a class="secondary" href="./">先免费生成配置</a></div>
+        <div class="actions"><a class="primary tracked-site" href="first-order.html">¥9.9 开始真实任务实测 →</a><a class="secondary" href="./">先免费生成配置</a></div>
         <p class="plain-url">网址：https://api.david-ai.net</p>
       </div>
       <img src="vidai-poster-v3.png" alt="胃袋 API 面向 Codex 与 Claude Code 用户的真实仓库小额实测海报">
@@ -50,14 +50,14 @@
     const incoming = new URLSearchParams(location.search);
     const source = incoming.get("utm_source") || "github_pages";
     const medium = incoming.get("utm_medium") || "landing";
-    const campaign = incoming.get("utm_campaign") || "conversion_reset_20261010";
+    const campaign = incoming.get("utm_campaign") || "first_order_20261014";
     document.querySelectorAll(".tracked-site").forEach((link, index) => {
-      const target = new URL("https://api.david-ai.net/");
+      const target = new URL("first-order.html", location.href);
       target.searchParams.set("utm_source", source);
       target.searchParams.set("utm_medium", medium);
       target.searchParams.set("utm_campaign", campaign);
       target.searchParams.set("utm_content", index === 0 ? "hero" : "bottom");
-      link.href = target.toString();
+      link.href = target.toString(); link.removeAttribute("target"); link.removeAttribute("rel");
     });
   </script>
 </body>

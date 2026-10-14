@@ -7,6 +7,7 @@
 - Codex API 每次成功任务真实成本计算器：https://t6016884321-maker.github.io/vidai-config-generator/codex-api-real-cost.html
 - VidAI 胃袋AI公开证据与评测资料：https://t6016884321-maker.github.io/vidai-config-generator/evidence.html
 - Codex API 三方 Provider 对比工具：https://t6016884321-maker.github.io/vidai-config-generator/provider-compare.html
+- ¥9.9 / $50 API 额度首单实测：https://t6016884321-maker.github.io/vidai-config-generator/first-order.html
 - VidAI 评测者结构化资料：https://t6016884321-maker.github.io/vidai-config-generator/vidai-review-kit.json
 - 团队与二级 API 供应商合作：https://t6016884321-maker.github.io/vidai-config-generator/partner.html
 

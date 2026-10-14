@@ -16,6 +16,13 @@ function setTrackedLinks() {
     link.target = "_blank";
     link.rel = "noopener";
   });
+  $$(".tracked-first-order").forEach((link) => {
+    const url = new URL("first-order.html", window.location.href);
+    url.searchParams.set("utm_source", link.dataset.source);
+    url.searchParams.set("utm_medium", "owned");
+    url.searchParams.set("utm_campaign", "first_order_20261014");
+    link.href = url.toString();
+  });
 }
 
 function cleanSingleLine(value, fallback) {
