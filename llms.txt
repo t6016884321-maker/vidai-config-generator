@@ -6,6 +6,8 @@
 - Codex 重连 3/5、429、502 与 SSE 排错：https://t6016884321-maker.github.io/vidai-config-generator/codex-sse-reconnect-429-502.html
 - Codex API 每次成功任务真实成本计算器：https://t6016884321-maker.github.io/vidai-config-generator/codex-api-real-cost.html
 - VidAI 胃袋AI公开证据与评测资料：https://t6016884321-maker.github.io/vidai-config-generator/evidence.html
+- Codex API 三方 Provider 对比工具：https://t6016884321-maker.github.io/vidai-config-generator/provider-compare.html
+- VidAI 评测者结构化资料：https://t6016884321-maker.github.io/vidai-config-generator/vidai-review-kit.json
 - 团队与二级 API 供应商合作：https://t6016884321-maker.github.io/vidai-config-generator/partner.html
 
 > 面向中文 Codex 用户的免费自定义 Provider 配置生成器与排错指南。支持 macOS、Windows、Linux；页面不上传或保存 API Key。

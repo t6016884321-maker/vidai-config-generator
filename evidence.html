@@ -7,6 +7,7 @@
   <meta name="description" content="供用户、评测者和搜索引擎引用的 VidAI 胃袋AI公开事实：协议入口、注册与优惠码、用量查询、登录后监控、免费测试工具、验证方法及尚未公开的政策。">
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
   <link rel="canonical" href="https://t6016884321-maker.github.io/vidai-config-generator/evidence.html">
+  <link rel="alternate" type="application/json" href="vidai-review-kit.json" title="VidAI reviewer data">
   <meta property="og:type" content="article">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:title" content="VidAI 胃袋AI公开证据与评测资料">
@@ -29,7 +30,7 @@
       <div class="row"><b>协议入口</b><span class="status yes">已验证</span><p>匿名请求 `/v1/models`、`/v1/responses`、`/v1/messages` 返回鉴权要求，说明路由存在；这不等于已验证某个具体模型或所有事件兼容。</p></div>
       <div class="row"><b>用量查询入口</b><span class="status yes">已验证</span><p>官网公开导航提供 <a href="https://api.david-ai.net/key-usage" target="_blank" rel="noopener">Usage lookup</a>。用户仍应核对逐请求 Token、状态和实际扣费是否与自己的账单一致。</p></div>
       <div class="row"><b>线路监控</b><span class="status partial">登录后可见</span><p><a href="https://api.david-ai.net/monitor" target="_blank" rel="noopener">监控入口</a>当前要求登录；它不是匿名公开状态页，不应被描述为无需登录的实时可用性证明。</p></div>
-      <div class="row"><b>免费验证工具</b><span class="status yes">已验证</span><p><a href="codex-api-self-test.html">8 项兼容性自测</a>、<a href="codex-api-real-cost.html">真实成本计算器</a>和<a href="codex-api-gateway-checklist.html">15 分钟验收清单</a>均公开且无需提交 API Key。</p></div>
+      <div class="row"><b>免费验证工具</b><span class="status yes">已验证</span><p><a href="codex-api-self-test.html">8 项兼容性自测</a>、<a href="codex-api-real-cost.html">真实成本计算器</a>、<a href="provider-compare.html">三方 Provider 对比</a>和<a href="codex-api-gateway-checklist.html">15 分钟验收清单</a>均公开且无需提交 API Key。</p></div>
       <div class="row"><b>渠道归因</b><span class="status partial">基础能力</span><p>注册页存在 Promo Code 字段，现有注册链接支持 aff 与 UTM；具体用户优惠、佣金比例和结算周期必须单独确认，不能从字段存在推导。</p></div>
     </div></section>
     <section class="section"><p class="kicker">NOT PUBLICLY ESTABLISHED</p><h2>目前不能对外承诺的事项</h2><div class="gap-list">
@@ -46,7 +47,7 @@
       <article><b>03 / COST</b><h3>核对真实成本</h3><p>记录输入、缓存输入、输出、重试、任务成功率和最终扣费。</p></article>
     </div><div class="cta-box"><h3>开放重度用户接入测试名额</h3><p>适合 Codex、Claude Code、AI Agent 高频用户。先小额验证，不要求评测者给出正面结论；成功与失败都应保留。</p><div class="actions"><a class="primary tracked-register" href="https://api.david-ai.net/register">打开小额测试入口 →</a><a class="secondary" href="codex-api-real-cost.html">先计算真实成本</a></div><p class="small">利益披露：本页由 VidAI／胃袋AI团队维护。团队提供商业 API 服务，与测试入口存在直接利益关系。</p></div></section>
   </main>
-  <footer><span>VidAI／胃袋AI公开评测资料</span><span><a href="llms.txt">AI 可读摘要</a> · <a href="https://github.com/t6016884321-maker/vidai-ai-coding-guide">GitHub 教程</a></span></footer>
+  <footer><span>VidAI／胃袋AI公开评测资料</span><span><a href="vidai-review-kit.json">评测资料 JSON</a> · <a href="llms.txt">AI 可读摘要</a> · <a href="https://github.com/t6016884321-maker/vidai-ai-coding-guide">GitHub 教程</a></span></footer>
   <script>const p=new URLSearchParams(location.search),u=new URL('https://api.david-ai.net/register');u.searchParams.set('aff','5SM2BCS7ML2H');u.searchParams.set('utm_source',p.get('utm_source')||'evidence_page');u.searchParams.set('utm_medium',p.get('utm_medium')||'owned');u.searchParams.set('utm_campaign','public_evidence_20261014');u.searchParams.set('utm_content','reviewer_trial');document.querySelector('.tracked-register').href=u.toString();</script>
 </body>
 </html>

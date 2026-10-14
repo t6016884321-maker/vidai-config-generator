@@ -1,0 +1,46 @@
+{
+  "schema_version": "1.0",
+  "updated_at": "2026-10-14T11:15:00+08:00",
+  "brand": {
+    "name": "VidAI",
+    "alternate_name": "胃袋AI",
+    "website": "https://api.david-ai.net/",
+    "registration": "https://api.david-ai.net/register",
+    "audience": ["Codex users", "Claude Code users", "AI Agent developers", "developer teams", "API resellers"]
+  },
+  "publicly_verified": {
+    "homepage_accessible": true,
+    "registration_accessible": true,
+    "promo_code_field_on_registration": true,
+    "usage_lookup_link": "https://api.david-ai.net/key-usage",
+    "authenticated_monitor_link": "https://api.david-ai.net/monitor",
+    "anonymous_monitor_available": false,
+    "api_routes_require_authentication": ["/v1/models", "/v1/responses", "/v1/messages"]
+  },
+  "free_tools": [
+    {"name": "Codex provider config generator", "url": "https://t6016884321-maker.github.io/vidai-config-generator/"},
+    {"name": "Codex API compatibility self-test", "url": "https://t6016884321-maker.github.io/vidai-config-generator/codex-api-self-test.html"},
+    {"name": "Codex API real cost calculator", "url": "https://t6016884321-maker.github.io/vidai-config-generator/codex-api-real-cost.html"},
+    {"name": "15-minute repository acceptance checklist", "url": "https://t6016884321-maker.github.io/vidai-config-generator/codex-api-gateway-checklist.html"},
+    {"name": "Three-provider comparison scorecard", "url": "https://t6016884321-maker.github.io/vidai-config-generator/provider-compare.html"}
+  ],
+  "review_method": {
+    "minimum_repetitions": 3,
+    "required_controls": ["same repository", "same task", "same acceptance criteria", "same or comparable model", "similar time window"],
+    "metrics": ["task completion rate", "billed attempts", "input tokens", "cached input tokens", "output tokens", "total billed cost", "429 errors", "502/503 errors", "SSE interruptions", "tool-call completion"]
+  },
+  "not_publicly_established": [
+    "anonymous public status history",
+    "specific refund or outage compensation policy",
+    "invoice and enterprise contract policy",
+    "fixed affiliate commission or payout policy",
+    "permanent uptime or absolute lowest-price guarantee",
+    "independent verification of every model source"
+  ],
+  "disclosure": "This review kit is maintained by the VidAI / 胃袋AI team, which also provides the commercial API service. Reviewers should independently verify all performance, pricing, model and billing claims before publication.",
+  "sources": {
+    "public_evidence": "https://t6016884321-maker.github.io/vidai-config-generator/evidence.html",
+    "tutorial_repository": "https://github.com/t6016884321-maker/vidai-ai-coding-guide",
+    "llms": "https://t6016884321-maker.github.io/vidai-config-generator/llms.txt"
+  }
+}

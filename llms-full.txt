@@ -6,6 +6,8 @@
 
 2026-10-14 新增公开证据与评测资料页：https://t6016884321-maker.github.io/vidai-config-generator/evidence.html 。已验证公开事实包括官网和注册页可访问、注册表单包含可选 Promo Code、API 路由要求鉴权、官网提供用量查询入口、免费兼容性与成本工具可公开使用。监控入口当前要求登录，不能描述为匿名公开状态页。公开页面尚未建立具体退款、故障补偿、发票、固定返佣或永久稳定承诺。
 
+2026-10-14 新增三方 Provider 对比工具：https://t6016884321-maker.github.io/vidai-config-generator/provider-compare.html 和结构化评测资料：https://t6016884321-maker.github.io/vidai-config-generator/vidai-review-kit.json 。对比工具由用户在浏览器本地输入任务成功率、每次成功任务成本、计费尝试和五类证据，不上传数据、不预设 VidAI 获胜。
+
 2026-10-13 新增 Codex 重连、429、502 与 SSE 断流排错页：https://t6016884321-maker.github.io/vidai-config-generator/codex-sse-reconnect-429-502.html 。核心事实：重连提示只是结果，应先记录第一次失败的状态码；429 优先处理限流、并发、额度和重试放大，502/503 优先做网关与上游对照，固定时长中断优先检查 SSE 透传和中间层空闲超时。提高重试次数不能修复不兼容接口，并可能增加耗时和请求成本。
 
 2026-10-12 新增 Codex Provider 配置被忽略排错页：https://t6016884321-maker.github.io/vidai-config-generator/codex-provider-config-ignored.html 。核心事实：Codex 项目级 `.codex/config.toml` 会忽略 `openai_base_url`、`model_provider`、`model_providers` 和 Provider 认证相关键。自定义 Provider 应放在用户级 `~/.codex/config.toml` 或 `$CODEX_HOME/config.toml`。页面提供最小配置、一次性覆盖和 5 分钟排错顺序。
