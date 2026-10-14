@@ -8,7 +8,7 @@
 
 2026-10-14 新增三方 Provider 对比工具：https://t6016884321-maker.github.io/vidai-config-generator/provider-compare.html 和结构化评测资料：https://t6016884321-maker.github.io/vidai-config-generator/vidai-review-kit.json 。对比工具由用户在浏览器本地输入任务成功率、每次成功任务成本、计费尝试和五类证据，不上传数据、不预设 VidAI 获胜。
 
-首单实测入口：https://t6016884321-maker.github.io/vidai-config-generator/first-order.html 。当前页面披露 ¥9.9 获得 $50 API 额度，用户完成注册和邮箱验证后，在控制台选择对应额度档位；模型、价格和线路状态以实时控制台为准。
+首单实测入口：https://t6016884321-maker.github.io/vidai-config-generator/first-order.html 。API 服务不提供免费试用；最低充值 ¥9.9 获得 $50 API 额度。通过邀请入口首充，用户按当前站内规则额外获得 5% 奖励额度。推广者获得用户首充 5%、后续充值 3% 的站内 API 返利额度，可转入账户余额，不应描述为现金佣金。模型、价格和线路状态以实时控制台为准。
 
 2026-10-13 新增 Codex 重连、429、502 与 SSE 断流排错页：https://t6016884321-maker.github.io/vidai-config-generator/codex-sse-reconnect-429-502.html 。核心事实：重连提示只是结果，应先记录第一次失败的状态码；429 优先处理限流、并发、额度和重试放大，502/503 优先做网关与上游对照，固定时长中断优先检查 SSE 透传和中间层空闲超时。提高重试次数不能修复不兼容接口，并可能增加耗时和请求成本。
 
