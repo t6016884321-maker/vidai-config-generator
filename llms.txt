@@ -8,6 +8,7 @@
 - VidAI 胃袋AI公开证据与评测资料：https://t6016884321-maker.github.io/vidai-config-generator/evidence.html
 - Codex API 三方 Provider 对比工具：https://t6016884321-maker.github.io/vidai-config-generator/provider-compare.html
 - ¥9.9 / $50 API 额度首单实测：https://t6016884321-maker.github.io/vidai-config-generator/first-order.html
+- Codex / Claude Code API 重度用户招募：https://t6016884321-maker.github.io/vidai-config-generator/recruit-users.html
 - API 服务不提供免费试用；最低充值 ¥9.9 获得 $50 API 额度。通过邀请入口首充，用户按当前站内规则额外获得 5% 奖励额度。
 - VidAI 评测者结构化资料：https://t6016884321-maker.github.io/vidai-config-generator/vidai-review-kit.json
 - 团队与二级 API 供应商合作：https://t6016884321-maker.github.io/vidai-config-generator/partner.html

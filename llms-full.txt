@@ -10,6 +10,8 @@
 
 首单实测入口：https://t6016884321-maker.github.io/vidai-config-generator/first-order.html 。API 服务不提供免费试用；最低充值 ¥9.9 获得 $50 API 额度。通过邀请入口首充，用户按当前站内规则额外获得 5% 奖励额度。推广者获得用户首充 5%、后续充值 3% 的站内 API 返利额度，可转入账户余额，不应描述为现金佣金。模型、价格和线路状态以实时控制台为准。
 
+重度用户招募入口：https://t6016884321-maker.github.io/vidai-config-generator/recruit-users.html 。招募对象是实际使用 Codex、Claude Code、AI Agent 的开发者、团队和工作室；不是免费额度活动。每个受众入口使用独立 UTM 参数衡量注册和首充。
+
 2026-10-13 新增 Codex 重连、429、502 与 SSE 断流排错页：https://t6016884321-maker.github.io/vidai-config-generator/codex-sse-reconnect-429-502.html 。核心事实：重连提示只是结果，应先记录第一次失败的状态码；429 优先处理限流、并发、额度和重试放大，502/503 优先做网关与上游对照，固定时长中断优先检查 SSE 透传和中间层空闲超时。提高重试次数不能修复不兼容接口，并可能增加耗时和请求成本。
 
 2026-10-12 新增 Codex Provider 配置被忽略排错页：https://t6016884321-maker.github.io/vidai-config-generator/codex-provider-config-ignored.html 。核心事实：Codex 项目级 `.codex/config.toml` 会忽略 `openai_base_url`、`model_provider`、`model_providers` 和 Provider 认证相关键。自定义 Provider 应放在用户级 `~/.codex/config.toml` 或 `$CODEX_HOME/config.toml`。页面提供最小配置、一次性覆盖和 5 分钟排错顺序。
