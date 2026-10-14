@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Codex 额度用完，切换第三方 API 仍无法发送？完整排错顺序</title>
+  <meta name="description" content="Codex 官方额度用完后，切换第三方 API Provider 仍无法发送或按钮灰色？从旧会话状态、config.toml、环境变量、401、429、SSE 分层排查。">
+  <meta name="keywords" content="Codex额度用完,Codex发送按钮灰色,Codex切换第三方API,Codex第三方API不生效,Codex API Provider,Codex config.toml">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+  <link rel="canonical" href="https://t6016884321-maker.github.io/vidai-config-generator/codex-quota-switch-provider-disabled.html">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="Codex 额度用完，切换第三方 API 仍无法发送？">
+  <meta property="og:description" content="先判断旧会话状态、配置层级和环境变量，再排查 API 线路。">
+  <meta property="og:image" content="https://t6016884321-maker.github.io/vidai-config-generator/vidai-poster-v3.png">
+  <meta property="og:url" content="https://t6016884321-maker.github.io/vidai-config-generator/codex-quota-switch-provider-disabled.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    main{max-width:920px;padding:68px 24px 110px}.article{padding:clamp(24px,5vw,48px);border:1px solid var(--line);border-radius:22px;background:rgba(14,20,29,.91)}
+    h1{font-size:clamp(38px,6vw,68px);line-height:1.05}.deck{font-size:20px;color:#c7d0db;line-height:1.75}.meta{color:var(--muted);font-size:14px}
+    h2{font-size:30px;margin:52px 0 14px}p,li{color:#c7d0db;line-height:1.8}li{margin:8px 0}.callout,.decision{padding:22px 26px;border:1px solid var(--line);border-radius:14px;background:#0b1017}.callout{border-left:3px solid var(--orange)}
+    code{color:var(--green)}pre{overflow:auto;padding:22px;border:1px solid var(--line);border-radius:12px;background:#05080d;color:#d7fdf2;line-height:1.55}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;margin:22px 0}th,td{padding:14px;border:1px solid var(--line);text-align:left;color:#c7d0db}th{color:var(--green);background:#0b1017}
+    .article a{color:var(--cyan)}.sticky-cta{display:flex;gap:18px;align-items:center;justify-content:space-between;margin-top:50px;padding:26px;border:1px solid var(--green);border-radius:16px;background:rgba(58,255,174,.06)}@media(max-width:700px){.sticky-cta{display:block}.sticky-cta .primary{display:block;margin-top:18px;text-align:center}}
+  </style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Codex 额度用完，切换第三方 API 仍无法发送？完整排错顺序","datePublished":"2026-10-15","dateModified":"2026-10-15","inLanguage":"zh-CN","image":"https://t6016884321-maker.github.io/vidai-config-generator/vidai-poster-v3.png","author":{"@type":"Organization","name":"VidAI 胃袋AI"},"publisher":{"@type":"Organization","name":"VidAI 胃袋AI","url":"https://api.david-ai.net/"},"description":"从旧会话状态、配置层级、环境变量、状态码和 SSE 兼容性排查 Codex 切换第三方 API 后无法发送。"}</script>
+</head>
+<body>
+  <div class="grid" aria-hidden="true"></div>
+  <header class="topbar"><a class="brand" href="./"><span>胃</span> VidAI · 胃袋AI</a><a class="status-link" href="evidence.html"><i></i> 公开证据与限制</a></header>
+  <main><article class="article">
+    <p class="kicker">CODEX QUOTA · PROVIDER SWITCH · TROUBLESHOOTING</p>
+    <h1>额度已经用完，<br><em>切换 API 为什么仍无法发送？</em></h1>
+    <p class="deck">别继续盲换 Key。问题可能停留在旧会话状态、用户级配置或环境变量；只有请求真的到达新端点后，才应判断新线路。</p>
+    <p class="meta">更新：2026-10-15 · 适用于 Codex 自定义 API Provider 的分层排错</p>
+    <div class="callout"><strong>先做这一件事：</strong>完全退出 Codex，重新启动并新建会话。旧会话仍可能保留官方账户的限额状态。</div>
+    <h2>一张表先分层</h2>
+    <div class="table-wrap"><table><thead><tr><th>现象</th><th>更可能的原因</th><th>第一动作</th></tr></thead><tbody>
+      <tr><td>发送按钮始终灰色</td><td>原会话仍保留官方限额状态</td><td>重启并新建会话</td></tr>
+      <tr><td>仍请求旧域名</td><td>当前进程未读取新配置</td><td>核对用户级 config.toml</td></tr>
+      <tr><td>新域名返回 401</td><td>Key、变量或鉴权头错误</td><td>检查 Key 来源</td></tr>
+      <tr><td>404 / model not found</td><td>路径或模型 ID 不匹配</td><td>从控制台复制模型名</td></tr>
+      <tr><td>普通聊天成功，仓库任务中断</td><td>Responses / SSE / 工具调用不完整</td><td>固定任务连续测 3 次</td></tr>
+    </tbody></table></div>
+    <h2>确认用户级配置真的生效</h2>
+    <p>Codex 用户级配置通常位于 <code>~/.codex/config.toml</code>。如果设置过 <code>CODEX_HOME</code>，实际位置会改变。</p>
+    <pre><code>model = "从服务控制台复制的当前模型名"
+model_provider = "your_gateway"
+
+[model_providers.your_gateway]
+name = "Your Gateway"
+base_url = "https://你的网关地址/v1"
+env_key = "OPENAI_API_KEY"
+wire_api = "responses"</code></pre>
+    <ul><li>顶层 <code>model_provider</code> 与 Provider 表 ID 必须完全一致；</li><li><code>base_url</code> 是否需要 <code>/v1</code> 应以服务商文档为准；</li><li>使用控制台当前模型 ID，不要猜营销名称；</li><li>不要依赖项目内配置覆盖 Provider 和认证设置。</li></ul>
+    <h2>环境变量可能仍指向旧 Key</h2>
+    <p>配置工具可能只修改端点，而不会清理终端或启动器里已经存在的变量。已经运行的进程也不会自动获得新值。修改后请从同一个终端重启，并避免在截图、Issue 或群聊中暴露真实 Key。</p>
+    <h2>按照状态码分流</h2>
+    <div class="decision"><ul><li><code>401 / 403</code>：Key、鉴权头或模型权限；</li><li><code>404 / model not found</code>：地址、接口路径或模型 ID；</li><li><code>429</code>：余额、并发或限流窗口，避免重试风暴；</li><li><code>502 / 503</code>：固定同一任务，换时间或模型做对照；</li><li>固定时长断流：检查 SSE 透传、代理缓冲和空闲超时。</li></ul></div>
+    <h2>恢复后连续验收 3 次</h2>
+    <p>不要用一句聊天判断稳定性。固定同一个真实仓库任务：先读取入口和测试命令，再修改两个相关文件并运行测试，记录是否完成、重连次数、耗时和实际扣费。</p>
+    <p class="meta">利益披露：本文由 VidAI／胃袋AI团队维护，团队同时提供商业 API 服务。排查方法适用于任意兼容 Provider。</p>
+    <div class="sticky-cta"><div><strong>需要增加一条候选线路作对照？</strong><br><span>无免费试用；最低 ¥9.9 获得 $50 API 额度，邀请入口首充按当前规则额外获得 5% 奖励额度。</span></div><a class="primary tracked-recruit" href="recruit-users.html">加入真实任务测试 →</a></div>
+  </article></main>
+  <footer><span>胃袋AI，量大管饱可劲造。</span><span><a href="./">配置生成器</a> · <a href="codex-api-self-test.html">免费兼容性自测</a></span></footer>
+  <script>const p=new URLSearchParams(location.search),t=new URL("recruit-users.html",location.href);t.searchParams.set("utm_source",p.get("utm_source")||"seo");t.searchParams.set("utm_medium",p.get("utm_medium")||"article");t.searchParams.set("utm_campaign","codex_quota_switch_20261015");t.searchParams.set("utm_content","bottom_recruit");document.querySelector(".tracked-recruit").href=t.toString();</script>
+</body>
+</html>
