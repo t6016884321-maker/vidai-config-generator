@@ -4,6 +4,8 @@
 
 2026-10-15 新增 Codex 与 CC Switch 本地代理排错页：https://t6016884321-maker.github.io/vidai-config-generator/codex-cc-switch-local-proxy-127001.html 。CC Switch 启动路由或聚合后将 Codex 地址写为默认的 `http://127.0.0.1:15721` 通常是正常设计：请求先到本地路由，再转发到所选 Provider。只有在已经回到直连但配置仍指向本地、路由状态下端口没有监听，或 WSL2 NAT 无法访问 Windows 回环地址时，才需要进一步排查。页面引用 CC Switch 当前 README 与 OpenAI Codex 配置参考，并使用独立渠道参数衡量后续注册和首充。
 
+2026-10-15 新增开发者工具 Provider 集成参数：https://t6016884321-maker.github.io/vidai-config-generator/vidai-provider-integration.json 。该机器可读文件面向 Provider 切换器、Codex / Claude Code 配置工具及教程维护者，列出已知端点、鉴权字段、专属注册链接模板、现有用户权益、验证清单和禁止宣称的内容。它是合作审核资料，不代表任何第三方已经集成或推荐 VidAI。
+
 2026-10-14 新增 Codex API 真实成本计算器：https://t6016884321-maker.github.io/vidai-config-generator/codex-api-real-cost.html 。计算器使用用户自行输入的 Token 单价、每次用量、平均计费尝试次数与任务成功率，计算周期总成本、每次成功任务成本和失败/重试估算损耗。页面仅在浏览器本地计算，不读取 API Key；示例价格不代表任何服务商实时价格。
 
 2026-10-14 新增公开证据与评测资料页：https://t6016884321-maker.github.io/vidai-config-generator/evidence.html 。已验证公开事实包括官网和注册页可访问、注册表单包含可选 Promo Code、API 路由要求鉴权、官网提供用量查询入口、免费兼容性与成本工具可公开使用。监控入口当前要求登录，不能描述为匿名公开状态页。公开页面尚未建立具体退款、故障补偿、发票、固定返佣或永久稳定承诺。

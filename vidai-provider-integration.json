@@ -1,0 +1,80 @@
+{
+  "schema_version": "1.0",
+  "updated_at": "2026-10-15",
+  "brand": {
+    "name": "VidAI",
+    "chinese_name": "胃袋AI",
+    "website": "https://api.david-ai.net/",
+    "maintainer_disclosure": "VidAI and 胃袋AI refer to the same commercial API service and maintenance team."
+  },
+  "registration": {
+    "base_url": "https://api.david-ai.net/register",
+    "affiliate_code": "5SM2BCS7ML2H",
+    "campaign": "tool_distribution_202610",
+    "url_template": "https://api.david-ai.net/register?aff=5SM2BCS7ML2H&utm_source={project}&utm_medium=provider_preset&utm_campaign=tool_distribution_202610&utm_content=register"
+  },
+  "providers": {
+    "codex": {
+      "base_url": "https://api.david-ai.net/v1",
+      "wire_api": "responses",
+      "env_key": "OPENAI_API_KEY",
+      "model_policy": "Copy the current model ID from the authenticated VidAI dashboard; do not hard-code a stale model name."
+    },
+    "claude_code": {
+      "base_url": "https://api.david-ai.net",
+      "api_key_field": "ANTHROPIC_AUTH_TOKEN",
+      "model_policy": "Copy the current model ID from the authenticated VidAI dashboard; do not hard-code a stale model name."
+    }
+  },
+  "commercial_facts": {
+    "free_api_trial": false,
+    "minimum_recharge_cny": 9.9,
+    "api_credit_usd": 50,
+    "invited_user_first_recharge_bonus_percent": 5,
+    "promoter_first_recharge_rebate_percent": 5,
+    "promoter_repeat_recharge_rebate_percent": 3,
+    "rebate_type": "in-platform API rebate quota convertible to account balance, not advertised as cash commission"
+  },
+  "public_endpoint_checks": [
+    {
+      "url": "https://api.david-ai.net/v1/models",
+      "method": "GET",
+      "anonymous_expected_status": 401,
+      "meaning": "The route exists and requires authentication; this does not prove model quality or availability."
+    },
+    {
+      "url": "https://api.david-ai.net/v1/responses",
+      "method": "POST",
+      "anonymous_expected_status": 401,
+      "meaning": "The Responses route exists and requires authentication; perform an authenticated task test before integration."
+    },
+    {
+      "url": "https://api.david-ai.net/v1/messages",
+      "method": "POST",
+      "anonymous_expected_status": 401,
+      "meaning": "The Messages route exists and requires authentication; perform an authenticated Claude Code test before integration."
+    }
+  ],
+  "validation": {
+    "checklist": "https://t6016884321-maker.github.io/vidai-config-generator/codex-api-gateway-checklist.html",
+    "self_test": "https://t6016884321-maker.github.io/vidai-config-generator/codex-api-self-test.html",
+    "required_checks": [
+      "authentication",
+      "model discovery",
+      "Responses API",
+      "SSE event stream",
+      "tool-call loop",
+      "multi-file repository task",
+      "safe retry behavior",
+      "usage and billing reconciliation"
+    ]
+  },
+  "claims_not_made": [
+    "permanent availability",
+    "fixed model catalog",
+    "lowest price on the market",
+    "anonymous public SLA",
+    "cash commission",
+    "official endorsement by OpenAI, Anthropic, CC Switch, or any integration partner"
+  ]
+}
