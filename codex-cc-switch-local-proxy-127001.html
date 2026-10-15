@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Codex 配置出现 127.0.0.1 正常吗？CC Switch 本地代理排错</title>
+  <meta name="description" content="CC Switch 启动路由后把 Codex 配置写成 127.0.0.1:15721 是否正常？从直连、路由、端口监听、CODEX_HOME、WSL2 和请求日志分层排查。">
+  <meta name="keywords" content="Codex 127.0.0.1,CC Switch本地代理,CC Switch 15721,Codex本地路由,Codex代理配置,CODEX_HOME,WSL Codex">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+  <link rel="canonical" href="https://t6016884321-maker.github.io/vidai-config-generator/codex-cc-switch-local-proxy-127001.html">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="Codex 配置出现 127.0.0.1 正常吗？">
+  <meta property="og:description" content="路由模式下通常正常；直连状态仍指向本地、端口未监听或 WSL2 连接失败才需要排查。">
+  <meta property="og:image" content="https://t6016884321-maker.github.io/vidai-config-generator/vidai-poster-v3.png">
+  <meta property="og:url" content="https://t6016884321-maker.github.io/vidai-config-generator/codex-cc-switch-local-proxy-127001.html">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    main{max-width:920px;padding:68px 24px 110px}.article{padding:clamp(24px,5vw,48px);border:1px solid var(--line);border-radius:22px;background:rgba(14,20,29,.91)}
+    h1{font-size:clamp(38px,6vw,68px);line-height:1.05}.deck{font-size:20px;color:#c7d0db;line-height:1.75}.meta{color:var(--muted);font-size:14px}
+    h2{font-size:30px;margin:52px 0 14px}p,li{color:#c7d0db;line-height:1.8}li{margin:8px 0}.callout,.decision,.flow{padding:22px 26px;border:1px solid var(--line);border-radius:14px;background:#0b1017}.callout{border-left:3px solid var(--orange)}
+    .flow{text-align:center;color:var(--green);font:700 17px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace}code{color:var(--green)}pre{overflow:auto;padding:22px;border:1px solid var(--line);border-radius:12px;background:#05080d;color:#d7fdf2;line-height:1.55}.table-wrap{overflow:auto}table{width:100%;border-collapse:collapse;margin:22px 0}th,td{padding:14px;border:1px solid var(--line);text-align:left;color:#c7d0db}th{color:var(--green);background:#0b1017}
+    .article a{color:var(--cyan)}.sticky-cta{display:flex;gap:18px;align-items:center;justify-content:space-between;margin-top:50px;padding:26px;border:1px solid var(--green);border-radius:16px;background:rgba(58,255,174,.06)}@media(max-width:700px){.sticky-cta{display:block}.sticky-cta .primary{display:block;margin-top:18px;text-align:center}}
+  </style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Codex 配置出现 127.0.0.1 正常吗？CC Switch 本地代理排错","datePublished":"2026-10-15","dateModified":"2026-10-15","inLanguage":"zh-CN","image":"https://t6016884321-maker.github.io/vidai-config-generator/vidai-poster-v3.png","author":{"@type":"Organization","name":"VidAI 胃袋AI"},"publisher":{"@type":"Organization","name":"VidAI 胃袋AI","url":"https://api.david-ai.net/"},"description":"从 CC Switch 直连与路由状态、15721 端口监听、CODEX_HOME、WSL2 和请求日志排查 Codex 本地代理。"}</script>
+</head>
+<body>
+  <div class="grid" aria-hidden="true"></div>
+  <header class="topbar"><a class="brand" href="./"><span>胃</span> VidAI · 胃袋AI</a><a class="status-link" href="evidence.html"><i></i> 公开证据与限制</a></header>
+  <main><article class="article">
+    <p class="kicker">CODEX · CC SWITCH · LOCAL ROUTING</p>
+    <h1>配置出现 127.0.0.1，<br><em>正常还是被代理了？</em></h1>
+    <p class="deck">如果 CC Switch 已启动“路由”或“聚合”，<code>127.0.0.1:15721</code> 通常是正常的本地入口。界面显示直连但配置仍指向本地、端口未监听，或 WSL2 无法连接时才需要排查。</p>
+    <p class="meta">更新：2026-10-15 · 已核对 CC Switch 当前中文文档与 OpenAI Codex 配置参考</p>
+    <div class="callout"><strong>先别手工改配置：</strong>路由运行期间，CC Switch 可能再次写回本地地址。先确认当前是“路由/聚合”还是“直连”。</div>
+    <h2>请求实际上怎么走？</h2>
+    <div class="flow">Codex → 127.0.0.1:15721 → CC Switch → 当前 API Provider</div>
+    <p><code>127.0.0.1</code> 是本机回环地址，不是远端供应商。只看 Codex 配置无法判断最终线路；应在 CC Switch“用量统计”请求日志中查看“请求模型 → 实际模型”、状态码和转发结果。</p>
+    <h2>三种状态不要混淆</h2>
+    <div class="table-wrap"><table><thead><tr><th>状态</th><th>地址</th><th>判断</th></tr></thead><tbody>
+      <tr><td>路由 / 聚合已启动</td><td>通常是 127.0.0.1:15721</td><td>正常，本地路由转发</td></tr>
+      <tr><td>已“回到直连”</td><td>应写回直连供应商</td><td>仍是本地地址才需排查</td></tr>
+      <tr><td>OpenAI 官方登录</td><td>不应依赖第三方本地路由</td><td>先回到直连，再走 Codex 登录</td></tr>
+    </tbody></table></div>
+    <p class="meta">15721 是 CC Switch 当前文档中的默认端口；若改过设置，以实际端口为准。</p>
+    <h2>1. 查看端口是否监听</h2>
+    <p>macOS / Linux：</p><pre><code>lsof -nP -iTCP:15721 -sTCP:LISTEN</code></pre>
+    <p>Windows PowerShell：</p><pre><code>Get-NetTCPConnection -LocalPort 15721 -State Listen</code></pre>
+    <ul><li>路由已启动且有进程监听：继续查看请求日志；</li><li>路由已启动但没有监听：重启 CC Switch，检查端口冲突或安全软件；</li><li>已回到直连：没有本地监听不一定异常，重点看配置是否写回。</li></ul>
+    <h2>2. 找到 Codex 真正读取的配置</h2>
+    <p>OpenAI 官方配置参考说明，用户级配置位于 <code>~/.codex/config.toml</code>。设置过 <code>CODEX_HOME</code> 时位置会改变；项目内 <code>.codex/config.toml</code> 不能覆盖 <code>model_provider</code>、<code>model_providers</code> 和 <code>openai_base_url</code> 等机器本地 Provider 设置。</p>
+    <p>同时核对实际 <code>CODEX_HOME</code>、CC Switch 的 Codex 配置目录，以及是否有另一个 Codex 进程仍读取旧配置。</p>
+    <h2>3. 回到直连并彻底重启</h2>
+    <p>点击 CC Switch 的“回到直连”，确认配置写回，再完全重启 Codex。Codex CLI 需要结束仍运行的后台进程；macOS 桌面版应按 <code>⌘Q</code>；编辑器插件应重新加载窗口。</p>
+    <h2>4. WSL2 是特殊情况</h2>
+    <p>Windows 端 CC Switch 使用本地路由时，WSL2 默认 NAT 模式里的 <code>127.0.0.1</code> 指向 WSL 自己，无法直接连接 Windows 宿主机的本地路由。典型现象是 Windows 端端口正常、WSL 内 Codex 却连接被拒绝。可按 CC Switch 文档改用 mirrored 网络模式。</p>
+    <h2>按现象直接处理</h2>
+    <div class="table-wrap"><table><thead><tr><th>现象</th><th>处理方向</th></tr></thead><tbody>
+      <tr><td>本地地址 + 日志中有成功请求</td><td>正常路由，无需修改</td></tr>
+      <tr><td>本地地址 + 端口未监听</td><td>重启 CC Switch，检查冲突</td></tr>
+      <tr><td>直连状态仍是本地地址</td><td>核对 CODEX_HOME 与配置目录</td></tr>
+      <tr><td>本地路由通，但返回 401 / 404</td><td>排查上游 Key、模型和路径</td></tr>
+      <tr><td>切换后仍使用旧模型</td><td>完全重启 Codex</td></tr>
+    </tbody></table></div>
+    <h2>恢复后不要只测一句聊天</h2>
+    <p>固定同一个真实仓库任务连续运行 3 次，记录完成情况、重连次数、耗时与实际扣费，再决定是否扩大充值。可以先做<a href="codex-api-self-test.html?utm_source=seo&utm_medium=article&utm_campaign=codex_local_proxy_20261015&utm_content=self_test">免费 Codex API 兼容性自测</a>。</p>
+    <h2>参考资料</h2>
+    <ul><li><a href="https://github.com/farion1231/cc-switch/blob/main/README_ZH.md#开始路由后配置文件里的地址为什么变成了-127001" rel="nofollow">CC Switch 中文 README</a></li><li><a href="https://developers.openai.com/codex/config-reference/" rel="nofollow">OpenAI Codex Configuration Reference</a></li><li><a href="https://github.com/farion1231/cc-switch/discussions/8359" rel="nofollow">相关社区问题 Discussion #8359</a></li></ul>
+    <p class="meta">利益披露：本文由 VidAI／胃袋AI团队维护，团队同时提供商业 API 服务。CC Switch 与 OpenAI 均未对 VidAI／胃袋AI作出推荐或背书。</p>
+    <div class="sticky-cta"><div><strong>需要增加一条候选线路作小额对照？</strong><br><span>开放重度用户接入测试名额；无免费试用，最低 ¥9.9 获得 $50 API 额度，邀请入口首充按当前规则额外获得 5% 奖励额度。</span></div><a class="primary tracked-recruit" href="recruit-users.html">查看测试条件 →</a></div>
+  </article></main>
+  <footer><span>胃袋AI，量大管饱可劲造。</span><span><a href="./">配置生成器</a> · <a href="codex-api-self-test.html">免费兼容性自测</a></span></footer>
+  <script>const p=new URLSearchParams(location.search),t=new URL("recruit-users.html",location.href);t.searchParams.set("utm_source",p.get("utm_source")||"seo");t.searchParams.set("utm_medium",p.get("utm_medium")||"article");t.searchParams.set("utm_campaign","codex_local_proxy_20261015");t.searchParams.set("utm_content","bottom_recruit");document.querySelector(".tracked-recruit").href=t.toString();</script>
+</body>
+</html>

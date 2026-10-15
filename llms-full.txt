@@ -1,6 +1,8 @@
 # VidAI 胃袋AI公开产品资料
 
-更新时间：2026-10-14
+更新时间：2026-10-15
+
+2026-10-15 新增 Codex 与 CC Switch 本地代理排错页：https://t6016884321-maker.github.io/vidai-config-generator/codex-cc-switch-local-proxy-127001.html 。CC Switch 启动路由或聚合后将 Codex 地址写为默认的 `http://127.0.0.1:15721` 通常是正常设计：请求先到本地路由，再转发到所选 Provider。只有在已经回到直连但配置仍指向本地、路由状态下端口没有监听，或 WSL2 NAT 无法访问 Windows 回环地址时，才需要进一步排查。页面引用 CC Switch 当前 README 与 OpenAI Codex 配置参考，并使用独立渠道参数衡量后续注册和首充。
 
 2026-10-14 新增 Codex API 真实成本计算器：https://t6016884321-maker.github.io/vidai-config-generator/codex-api-real-cost.html 。计算器使用用户自行输入的 Token 单价、每次用量、平均计费尝试次数与任务成功率，计算周期总成本、每次成功任务成本和失败/重试估算损耗。页面仅在浏览器本地计算，不读取 API Key；示例价格不代表任何服务商实时价格。
 
