@@ -7,6 +7,7 @@
 - Codex 额度用完后切换第三方 API 仍无法发送：https://t6016884321-maker.github.io/vidai-config-generator/codex-quota-switch-provider-disabled.html
 - Codex 配置出现 127.0.0.1 与 CC Switch 本地代理排错：https://t6016884321-maker.github.io/vidai-config-generator/codex-cc-switch-local-proxy-127001.html
 - Codex API 每次成功任务真实成本计算器：https://t6016884321-maker.github.io/vidai-config-generator/codex-api-real-cost.html
+- Codex API 中转站购买前真实成本与稳定性指南：https://t6016884321-maker.github.io/vidai-config-generator/codex-api-buying-guide.html
 - VidAI 胃袋AI公开证据与评测资料：https://t6016884321-maker.github.io/vidai-config-generator/evidence.html
 - Codex API 三方 Provider 对比工具：https://t6016884321-maker.github.io/vidai-config-generator/provider-compare.html
 - ¥9.9 / $50 API 额度首单实测：https://t6016884321-maker.github.io/vidai-config-generator/first-order.html
