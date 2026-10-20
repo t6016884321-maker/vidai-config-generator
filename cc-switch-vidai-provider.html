@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CC Switch 添加胃袋API：Codex Provider 配置教程</title>
+  <meta name="description" content="在 CC Switch 中添加 VidAI 胃袋API Codex Provider：填写 API 地址、Responses 格式、当前模型与密钥，并用真实仓库任务验证 SSE、工具调用和扣费。">
+  <meta name="keywords" content="CC Switch胃袋API,CC Switch Codex,CC Switch中转站,Codex Provider,胃袋API配置">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1">
+  <link rel="canonical" href="https://t6016884321-maker.github.io/vidai-config-generator/cc-switch-vidai-provider.html">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:title" content="CC Switch 添加胃袋API：Codex Provider 配置教程">
+  <meta property="og:description" content="不改全局插件和 MCP，用 CC Switch 管理胃袋API Codex Provider。">
+  <meta property="og:url" content="https://t6016884321-maker.github.io/vidai-config-generator/cc-switch-vidai-provider.html">
+  <meta property="og:image" content="https://t6016884321-maker.github.io/vidai-config-generator/vidai-poster-v3.png">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    main{max-width:900px;padding:64px 24px 110px}.hero-guide{padding:46px 0 34px}.hero-guide h1{font-size:clamp(38px,7vw,68px);line-height:1.06;letter-spacing:-.05em}.article{border-top:1px solid var(--line);padding-top:34px}.article h2{font-size:30px;margin-top:48px}.article p,.article li{color:#c7d0db;font-size:17px;line-height:1.8}.article li{margin-bottom:8px}.card{padding:22px;border:1px solid var(--line);border-radius:16px;background:#0a1016;margin:22px 0}.kv{display:grid;grid-template-columns:160px 1fr;gap:10px 18px}.kv b{color:var(--green)}pre{padding:20px;border:1px solid var(--line);border-radius:12px;background:#05080c;color:#bafbe0;overflow:auto;line-height:1.65}.warning{border-color:#68582f;background:#1a160c}.cta{margin-top:42px;padding:28px;border:1px solid #2f6f58;border-radius:18px;background:linear-gradient(135deg,#11281f,#0b1219)}@media(max-width:640px){.kv{grid-template-columns:1fr}.hero-guide{padding-top:26px}}
+  </style>
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"HowTo","name":"在 CC Switch 中添加胃袋API Codex Provider","description":"使用 CC Switch 添加 VidAI 胃袋API，并以 Responses API 连接 Codex。","datePublished":"2026-10-20","dateModified":"2026-10-20","inLanguage":"zh-CN","step":[{"@type":"HowToStep","name":"创建 Codex 供应商","text":"在 CC Switch 的 Codex 页面添加自定义供应商。"},{"@type":"HowToStep","name":"填写连接参数","text":"名称填 VidAI 胃袋API，Base URL 填 https://api.david-ai.net/v1，上游格式选择 OpenAI Responses API。"},{"@type":"HowToStep","name":"填写 Key 与模型","text":"从已登录的 VidAI 控制台复制自己的 API Key 和当前模型 ID，不要在截图或群聊中公开。"},{"@type":"HowToStep","name":"执行真实任务测试","text":"固定同一仓库任务连续运行三次，核对成功率、SSE、工具调用、耗时和扣费。"}]}
+  </script>
+</head>
+<body>
+  <div class="grid" aria-hidden="true"></div>
+  <header class="topbar"><a class="brand" href="./"><span>胃</span> VidAI · 胃袋AI</a><a class="status-link" href="codex-api-self-test.html">兼容性自测</a></header>
+  <main>
+    <section class="hero-guide">
+      <p class="kicker">CC SWITCH × CODEX</p>
+      <h1>把胃袋API添加到<br><em>CC Switch</em></h1>
+      <p class="lead">不用反复手改 <code>config.toml</code>。在 CC Switch 中保存 Provider 后，可以在官方登录和第三方线路之间切换。</p>
+    </section>
+    <article class="article">
+      <div class="card warning"><b>安全提示：</b>本文不会要求你提交 API Key。密钥只填写在本机 CC Switch 中；不要把真实 Key 发到网页表单、Issue、截图、论坛或群聊。</div>
+
+      <h2>1. 新建 Codex Provider</h2>
+      <p>打开 CC Switch，左侧选择 <b>Codex</b>，点击右上角添加供应商，选择自定义配置。不同版本按钮文字可能略有差异。</p>
+      <div class="card kv">
+        <b>显示名称</b><span>VidAI 胃袋API</span>
+        <b>Base URL</b><span><code>https://api.david-ai.net/v1</code></span>
+        <b>上游格式</b><span>OpenAI Responses API</span>
+        <b>API Key</b><span>从你自己的 VidAI 控制台复制</span>
+        <b>模型 ID</b><span>从当前控制台复制，不要使用过期教程里的固定模型名</span>
+      </div>
+
+      <h2>2. 如果需要检查 TOML</h2>
+      <p>CC Switch 会管理连接字段。手动核对时，关键结构应类似下面这样；把占位符替换为控制台当前模型，但不要把真实 Key 写进公开文件。</p>
+      <pre><code>model_provider = "custom"
+model = "控制台当前模型ID"
+model_reasoning_effort = "high"
+disable_response_storage = true
+
+[model_providers.custom]
+name = "VidAI 胃袋API"
+base_url = "https://api.david-ai.net/v1"
+wire_api = "responses"
+requires_openai_auth = true</code></pre>
+
+      <h2>3. 切换后重启 Codex</h2>
+      <p>Codex 通常只在启动时读取 Provider 和模型配置。切换供应商或模型后，彻底退出当前 Codex 会话并重新启动，再执行验证任务。</p>
+
+      <h2>4. 不要只测一句对话</h2>
+      <p>固定一个真实仓库任务，连续运行至少 3 次，记录：</p>
+      <ul>
+        <li>是否完成代码修改并通过测试；</li>
+        <li>是否出现 SSE 断流、429、502 或自动重试；</li>
+        <li>文件、Shell 和测试工具是否形成完整闭环；</li>
+        <li>首字延迟、总任务耗时、Token 与实际扣费；</li>
+        <li>失败后是否能在 CC Switch 请求日志或站内用量记录中定位。</li>
+      </ul>
+
+      <section class="cta">
+        <p class="kicker">START SMALL</p>
+        <h2>还没有胃袋API账号？</h2>
+        <p>当前最低充值 ¥9.9。建议只做小额验证；连续任务不符合自己的要求，就不要扩大充值。</p>
+        <a class="primary" href="https://api.david-ai.net/register?aff=5SM2BCS7ML2H&utm_source=github_pages&utm_medium=cc_switch_guide&utm_campaign=provider_integration_20261020">注册并小额验证 →</a>
+      </section>
+
+      <p class="disclosure">利益披露：本文由 VidAI／胃袋AI团队维护，团队同时提供商业 API 服务。本文不代表 CC Switch 官方背书，不承诺固定模型、固定价格、永久可用或全网最低。CC Switch 的界面与配置规则可能随版本变化，请同时参考其官方文档。</p>
+      <p class="disclosure">参考：<a href="https://github.com/farion1231/cc-switch" target="_blank" rel="noopener">CC Switch 官方仓库</a> · <a href="codex-api-buying-guide.html">Codex API 购买前 7 项验收</a></p>
+    </article>
+  </main>
+  <footer><span>胃袋AI，量大管饱可劲造。</span><span><a href="./">配置生成器</a> · <a href="evidence.html">公开证据</a></span></footer>
+</body>
+</html>

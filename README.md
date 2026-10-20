@@ -11,6 +11,7 @@
 - [Codex API 真实任务成本计算器](https://t6016884321-maker.github.io/vidai-config-generator/codex-api-real-cost.html)
 - [公开产品事实与限制](https://t6016884321-maker.github.io/vidai-config-generator/product.html)
 - [公开证据与独立评测说明](https://t6016884321-maker.github.io/vidai-config-generator/evidence.html)
+- [CC Switch 添加胃袋API Provider 教程](https://t6016884321-maker.github.io/vidai-config-generator/cc-switch-vidai-provider.html)
 
 建议用同一真实仓库任务连续测试至少 3 次，核对成功率、重试、耗时、Token 和扣费，再决定是否继续充值。VidAI／胃袋AI是本项目维护方提供的商业 API 服务；相关页面均明确披露利益关系，不承诺全网最低、永久稳定或固定模型与价格。
 
