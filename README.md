@@ -1,6 +1,18 @@
-# VidAI 胃袋AI Codex 自定义 Provider 配置生成器
+# Codex API 中转站购买前自测与配置指南｜VidAI 胃袋AI
 
-面向中文 Codex 用户的免费自定义 Provider 配置生成器与排错入口。支持 macOS、Windows、Linux；无依赖、无后端，不会收集或保存 API Key。
+面向正在搜索“Codex API 中转站推荐、购买、评测和配置”的中文开发者。本项目提供免费自定义 Provider 配置生成器、购买前兼容性自测、真实任务成本计算与常见故障排查。支持 macOS、Windows、Linux；无依赖、无后端，不会收集或保存 API Key。
+
+## 先选线路，再决定是否充值
+
+不要只比较每百万 Token 的标价。对 Codex、Claude Code 和 AI Agent，真正影响成本的是实际任务成功率、SSE 长连接、工具调用闭环、失败重试和最终扣费。
+
+- [Codex API 中转站购买前避坑指南](https://t6016884321-maker.github.io/vidai-config-generator/codex-api-buying-guide.html)
+- [Codex API 兼容性自测](https://t6016884321-maker.github.io/vidai-config-generator/codex-api-self-test.html)
+- [Codex API 真实任务成本计算器](https://t6016884321-maker.github.io/vidai-config-generator/codex-api-real-cost.html)
+- [公开产品事实与限制](https://t6016884321-maker.github.io/vidai-config-generator/product.html)
+- [公开证据与独立评测说明](https://t6016884321-maker.github.io/vidai-config-generator/evidence.html)
+
+建议用同一真实仓库任务连续测试至少 3 次，核对成功率、重试、耗时、Token 和扣费，再决定是否继续充值。VidAI／胃袋AI是本项目维护方提供的商业 API 服务；相关页面均明确披露利益关系，不承诺全网最低、永久稳定或固定模型与价格。
 
 - 在线工具：https://t6016884321-maker.github.io/vidai-config-generator/
 - API 小额实测页：https://t6016884321-maker.github.io/vidai-config-generator/api-trial.html
