@@ -106,4 +106,7 @@ test("指向注册或充值的页面链接都交给 links.js", () => {
   assert.match(fs.readFileSync(path.join(root, "codex-api-real-cost.html"), "utf8"), /data-vidai-tool="cost-calc"/);
   assert.match(fs.readFileSync(path.join(root, "index.html"), "utf8"), /id="recharge" hidden/);
   assert.match(fs.readFileSync(path.join(root, "codex-api-real-cost.html"), "utf8"), /id="recharge" hidden/);
+  const hint = "新用户注册后回到本页，再点一次即可充值";
+  assert.match(fs.readFileSync(path.join(root, "index.html"), "utf8"), new RegExp(hint));
+  assert.match(fs.readFileSync(path.join(root, "codex-api-real-cost.html"), "utf8"), new RegExp(hint));
 });
