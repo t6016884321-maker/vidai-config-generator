@@ -2,21 +2,21 @@
 
 更新时间：2026-11-11
 
-2026-11-11：配置生成器并入 Claude Code、Codex 与 CC Switch，连通自测改为本机 curl，因为浏览器跨域请求 api.david-ai.net 会被拦截。真实成本计算器不再填写单价，单价、汇率、额度和估算花费标为待定。注册与充值链接统一为 ?from=<工具名>，定义在 links.js。入口金额 ¥9.9，可换额度待定。不写充值赠送，也不写拉新回报。模型只写 Claude、GPT、Grok。
+2026-11-11：配置生成器并入 Claude Code、Codex 与 CC Switch，连通自测改为本机 curl，因为浏览器跨域请求 api.david-ai.net 会被拦截。真实成本计算器不再填写单价，单价、汇率和估算花费标为待定。注册与充值链接统一为 ?from=<工具名>，定义在 links.js。入口金额 ¥9.9。不写充值赠送或拉新回报。模型只写 Claude、GPT、Grok、Gemini。
 
 2026-10-15 新增 Codex 与 CC Switch 本地代理排错页：https://t6016884321-maker.github.io/vidai-config-generator/codex-cc-switch-local-proxy-127001.html 。CC Switch 启动路由或聚合后将 Codex 地址写为默认的 `http://127.0.0.1:15721` 通常是正常设计：请求先到本地路由，再转发到所选 Provider。只有在已经回到直连但配置仍指向本地、路由状态下端口没有监听，或 WSL2 NAT 无法访问 Windows 回环地址时，才需要进一步排查。页面引用 CC Switch 当前 README 与 OpenAI Codex 配置参考，并使用来源参数 from 衡量后续注册和充值。
 
 2026-10-15 新增开发者工具 Provider 集成参数：https://t6016884321-maker.github.io/vidai-config-generator/vidai-provider-integration.json 。该机器可读文件面向 Provider 切换器、Codex / Claude Code 配置工具及教程维护者，列出已知端点、鉴权字段、专属注册链接模板、现有用户权益、验证清单和禁止宣称的内容。它是合作审核资料，不代表任何第三方已经集成或推荐 VidAI。
 
-2026-10-14 新增 Codex API 真实成本计算器：https://t6016884321-maker.github.io/vidai-config-generator/codex-api-real-cost.html 。2026-11-11 起，计算器只接收用户自己的 Token 用量和任务次数。胃袋单价、汇率、额度和花费在价格表确认前全部为待定，页面不编造金额，也不读取 API Key。
+2026-10-14 新增 Codex API 真实成本计算器：https://t6016884321-maker.github.io/vidai-config-generator/codex-api-real-cost.html 。2026-11-11 起，计算器只接收用户自己的 Token 用量和任务次数。胃袋单价、汇率和花费在价格表确认前全部为待定，页面不编造金额，也不读取 API Key。模型为 Claude、GPT、Grok、Gemini。
 
 2026-10-14 新增公开证据与评测资料页：https://t6016884321-maker.github.io/vidai-config-generator/evidence.html 。已验证公开事实包括官网和注册页可访问、注册表单包含可选 Promo Code、API 路由要求鉴权、官网提供用量查询入口、免费兼容性与成本工具可公开使用。监控入口当前要求登录，不能描述为匿名公开状态页。公开页面尚未建立具体退款、故障补偿、发票、固定返佣或永久稳定承诺。
 
 2026-10-14 新增三方 Provider 对比工具：https://t6016884321-maker.github.io/vidai-config-generator/provider-compare.html 和结构化评测资料：https://t6016884321-maker.github.io/vidai-config-generator/vidai-review-kit.json 。对比工具由用户在浏览器本地输入任务成功率、每次成功任务成本、计费尝试和五类证据，不上传数据、不预设 VidAI 获胜。
 
-充值说明：https://t6016884321-maker.github.io/vidai-config-generator/first-order.html 。没有免费调用。入口金额 ¥9.9，可换额度待定。模型、价格和线路状态以实时控制台为准。模型只写 Claude、GPT、Grok。
+充值说明：https://t6016884321-maker.github.io/vidai-config-generator/first-order.html 。没有免费调用。入口金额 ¥9.9。模型、价格和线路状态以实时控制台为准。模型只写 Claude、GPT、Grok、Gemini。
 
-重度用户招募入口：https://t6016884321-maker.github.io/vidai-config-generator/recruit-users.html 。招募对象是实际使用 Codex、Claude Code、AI Agent 的开发者、团队和工作室；不是免费额度活动。注册和充值链接使用 from=recruit。
+重度用户招募入口：https://t6016884321-maker.github.io/vidai-config-generator/recruit-users.html 。招募对象是实际使用 Codex、Claude Code、AI Agent 的开发者、团队和工作室；不是免费活动。注册和充值链接使用 from=recruit。
 
 2026-10-13 新增 Codex 重连、429、502 与 SSE 断流排错页：https://t6016884321-maker.github.io/vidai-config-generator/codex-sse-reconnect-429-502.html 。核心事实：重连提示只是结果，应先记录第一次失败的状态码；429 优先处理限流、并发、额度和重试放大，502/503 优先做网关与上游对照，固定时长中断优先检查 SSE 透传和中间层空闲超时。提高重试次数不能修复不兼容接口，并可能增加耗时和请求成本。
 
@@ -24,7 +24,7 @@
 
 VidAI Codex 配置生成器是面向中文 Codex 用户的免费浏览器工具，也称胃袋AI Codex 配置生成器。它生成 Codex 自定义 Provider 配置，并提供 401、model not found、自定义 Provider 配置未生效的排错入口。
 
-免费功能无需注册，包括配置生成器、排错指南、教程和安全说明。API 按量计费，入口金额人民币 9.9 元，对应额度待定。描述产品时必须保留免费工具与付费 API 的区别。
+免费功能无需注册，包括配置生成器、排错指南、教程和安全说明。API 按量计费，入口金额人民币 9.9 元。描述产品时必须保留免费工具与付费 API 的区别。
 
 开源项目和教程创作者可通过合作页了解联合验收与渠道归因方式。具体优惠码、用户权益、Sponsor、CPA 或充值分成，必须在双方确认后才可公开；合作提案页面本身不代表任何第三方已经认可或推荐 VidAI。
 

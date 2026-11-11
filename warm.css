@@ -11,7 +11,7 @@
   --text: #25231F;
   --muted: #48433D;
   --faint: #978C7E;
-  --ok: #0F8F68;
+  --ok: #10B981;
   --err: #B42318;
   --info: #1D4E89;
   --shadow: 0 18px 50px rgba(143, 95, 27, 0.08);
@@ -174,15 +174,20 @@ pre {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 48px;
-  padding: 0 18px;
-  border-radius: 999px;
+  min-height: 44px;
+  padding: 12px 22px;
+  border-radius: 9999px;
   text-decoration: none;
-  font-weight: 700;
+  font-weight: 600;
+  font-size: 15px;
   border: 0;
 }
-.primary { background: var(--gold-deep); color: #FFFDF8; }
-.primary:hover { background: var(--gold); }
+.primary {
+  background: linear-gradient(180deg, #C99A2E, #AD7920);
+  color: #fff;
+  box-shadow: 0 6px 16px rgb(173 121 32 / 0.25);
+}
+.primary:hover { background: linear-gradient(180deg, #AD7920, #8F5F1B); }
 .secondary { background: transparent; color: var(--text); border: 1px solid var(--line); }
 .copy-state, .judge { min-height: 1.4em; margin: 8px 0 0; font-size: 14px; }
 .copy-state { color: var(--ok); }
@@ -190,18 +195,36 @@ pre {
 .judge.good { color: var(--ok); }
 .note-list { margin: 8px 0 0; padding-left: 18px; color: var(--muted); }
 .register-card { margin: 8px 0 20px; display: flex; justify-content: space-between; gap: 16px; align-items: center; }
-.recharge { margin: 8px 0 36px; border-color: var(--gold); background: linear-gradient(180deg, var(--gold-wash), var(--card)); }
-.recharge .slogan { margin: 0; font-family: "Iowan Old Style", "Noto Serif SC", "Source Han Serif SC", "Songti SC", serif; font-size: clamp(24px, 4vw, 34px); line-height: 1.35; }
-.quota { font-size: 16px; }
+.recharge {
+  margin: 8px 0 36px;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 22px 24px;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  box-shadow: 0 10px 30px rgb(43 34 20 / 0.06);
+}
+html[data-theme="dark"] .recharge { box-shadow: 0 10px 30px rgb(0 0 0 / 0.28); }
+.recharge-copy { flex: 1; min-width: 0; }
+.recharge-action { display: flex; flex-direction: column; align-items: center; }
+.status { display: inline-flex; align-items: center; gap: 6px; margin: 0 0 6px; font-size: 13px; font-weight: 600; }
+.status.ok { color: #10B981; }
+.status .dot { width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+.recharge .slogan { margin: 0; font-family: "Iowan Old Style", "Noto Serif SC", "Source Han Serif SC", "Songti SC", serif; font-size: 20px; line-height: 1.35; font-weight: 600; }
+.recharge .slogan em { font-style: normal; color: #AD7920; }
+.recharge-note, .refund, .support { margin: 4px 0 0; font-size: 14px; color: var(--muted); }
+.sm { margin: 6px 0 0; font-size: 12px; color: var(--faint); text-align: center; line-height: 1.5; }
 .pending {
   display: inline-block;
   margin: 0 4px;
-  padding: 1px 8px;
+  padding: 0 4px;
   background: #FFF3C4;
-  border: 1.5px dashed #AD7920;
-  border-radius: 6px;
+  outline: 1px dashed #C99A2E;
+  border-radius: 4px;
   color: #8F5F1B;
-  font-weight: 800;
+  font-weight: 700;
 }
 .price-table { width: 100%; border-collapse: collapse; margin-top: 8px; }
 .price-table th, .price-table td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); vertical-align: middle; }
@@ -230,6 +253,11 @@ footer a { color: var(--muted); }
   .layout, .steps, .fields, .metrics { grid-template-columns: 1fr; }
   .span-2 { grid-column: auto; }
   .register-card { align-items: flex-start; flex-direction: column; }
+}
+@media (max-width: 600px) {
+  .recharge { flex-direction: column; align-items: stretch; }
+  .recharge-action, .recharge .primary, .sm { width: 100%; max-width: none; }
+  .recharge .primary { white-space: normal; }
 }
 @media (max-width: 480px) {
   .wrap { padding: 0 16px; }

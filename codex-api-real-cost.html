@@ -4,12 +4,12 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>真实成本计算器｜胃袋AI</title>
-  <meta name="description" content="输入 Token 用量，查看胃袋AI按量花费的计算位置。单价、汇率和额度尚未公布，页面一律标为待定，不编造金额。">
+  <meta name="description" content="输入 Token 用量，查看胃袋AI按量花费的计算位置。单价和汇率尚未公布，页面标为待定，不编造金额。模型为 Claude、GPT、Grok、Gemini。">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://t6016884321-maker.github.io/vidai-config-generator/codex-api-real-cost.html">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:title" content="胃袋AI真实成本计算器">
-  <meta property="og:description" content="用量你可以填，单价、汇率和额度都是待定。">
+  <meta property="og:description" content="用量你可以填，单价和汇率都是待定。">
   <meta property="og:url" content="https://t6016884321-maker.github.io/vidai-config-generator/codex-api-real-cost.html">
   <meta property="og:image" content="https://t6016884321-maker.github.io/vidai-config-generator/vidai-poster-v3.png">
   <script>
@@ -39,7 +39,7 @@
     <section class="hero">
       <p class="kicker">用量估算 · 价格待定</p>
       <h1>先把用量算清楚。</h1>
-      <p class="lead">填写你预计的 Token 和任务次数。胃袋还没有可引用的价格表，所以单价、汇率、花费和 ¥9.9 对应额度全部是黄框「待定」，不会出现编造的金额。</p>
+      <p class="lead">填写你预计的 Token 和任务次数。胃袋还没有可引用的价格表，所以单价、汇率和花费全部是黄框「待定」，不会出现编造的金额。模型是 Claude、GPT、Grok、Gemini。</p>
     </section>
     <section class="layout">
       <div class="panel">
@@ -52,6 +52,7 @@
               <button type="button" data-model="Claude" role="radio" aria-checked="true">Claude</button>
               <button type="button" data-model="GPT" role="radio" aria-checked="false">GPT</button>
               <button type="button" data-model="Grok" role="radio" aria-checked="false">Grok</button>
+              <button type="button" data-model="Gemini" role="radio" aria-checked="false">Gemini</button>
             </div>
           </div>
           <div class="fields">
@@ -77,8 +78,9 @@
             <tr><td>GPT 输出单价</td><td><span class="pending">待定</span></td></tr>
             <tr><td>Grok 输入单价</td><td><span class="pending">待定</span></td></tr>
             <tr><td>Grok 输出单价</td><td><span class="pending">待定</span></td></tr>
+            <tr><td>Gemini 输入单价</td><td><span class="pending">待定</span></td></tr>
+            <tr><td>Gemini 输出单价</td><td><span class="pending">待定</span></td></tr>
             <tr><td>汇率</td><td><span class="pending">待定</span></td></tr>
-            <tr><td>¥9.9 可换额度</td><td><span class="pending">待定</span></td></tr>
           </tbody>
         </table>
       </div>
@@ -89,15 +91,17 @@
       <div class="metrics" id="costResult"><p class="fine">还没有计算。</p></div>
     </section>
     <section class="recharge" id="recharge" hidden>
-      <p class="kicker">充值</p>
-      <h2>用量已经记下</h2>
-      <p class="slogan" data-vidai-slogan></p>
-      <p class="quota">按上面的待定价格，¥9.9 可换额度 <span class="pending">待定</span></p>
-      <div class="row-actions">
-        <a class="primary" data-vidai-kind="recharge" data-vidai-tool="cost-calc" data-vidai-button href="#">¥9.9 入坑</a>
-        <a class="secondary" data-vidai-kind="register" data-vidai-tool="cost-calc" href="#">还没有账号？去注册</a>
+      <div class="recharge-copy">
+        <p class="status ok"><i class="dot" aria-hidden="true"></i>用量已经记下</p>
+        <h2 class="slogan" data-vidai-slogan></h2>
+        <p class="recharge-note">先花 9.9 元，用真实仓库验证。单价和汇率仍是待定，不能当成报价。模型是 Claude、GPT、Grok、Gemini。</p>
+        <p class="refund" data-vidai-refund></p>
+        <p class="support"><span data-vidai-support></span> · <a data-vidai-refund-link href="#">查看完整规则</a></p>
       </div>
-      <p class="fine">按量计费。充值页需要登录。价格表确认前，不要把待定理解成某个具体金额。</p>
+      <div class="recharge-action">
+        <a class="primary" data-vidai-kind="recharge" data-vidai-tool="cost-calc" data-vidai-button href="#">¥9.9 先跑一次真实仓库</a>
+        <p class="sm">已登录进入充值页。<br>未登录先到登录页，登录后回到充值页。</p>
+      </div>
     </section>
     <section class="panel">
       <h2>次数怎么理解</h2>

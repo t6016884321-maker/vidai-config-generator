@@ -34,7 +34,7 @@
     "unit_prices": null,
     "exchange_rate": null,
     "status": "pending",
-    "note": "Credit amount, unit prices and exchange rate are pending. Do not publish bonuses or invite rewards."
+    "note": "Do not display credit amounts or validity periods. Unit prices and exchange rate are pending. Models are Claude, GPT, Grok, and Gemini. Do not publish bonuses or invite rewards."
   },
   "public_endpoint_checks": [
     {

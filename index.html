@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>一键配置 Claude Code / Codex 并跑通首次调用｜胃袋AI</title>
-  <meta name="description" content="为 Claude Code 和 Codex 生成胃袋AI配置，并给出可在本机运行的 curl 连通自测。没有 Key 去注册。页面不保存 API Key。模型只写 Claude、GPT、Grok。">
+  <meta name="description" content="为 Claude Code 和 Codex 生成胃袋AI配置，并给出可在本机运行的 curl 连通自测。没有 Key 去注册。页面不保存 API Key。模型只写 Claude、GPT、Grok、Gemini。">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://t6016884321-maker.github.io/vidai-config-generator/">
   <meta property="og:type" content="website">
@@ -54,7 +54,7 @@
     <section class="hero">
       <p class="kicker">配置生成 · 连通自测</p>
       <h1>不会配，也能把第一次调用跑通。</h1>
-      <p class="lead">选 Claude Code、Codex 或 CC Switch，生成配置，再复制一条 curl 到自己的终端。模型只写 Claude、GPT、Grok。页面不接收、不保存 API Key。</p>
+      <p class="lead">选 Claude Code、Codex 或 CC Switch，生成配置，再复制一条 curl 到自己的终端。模型只写 Claude、GPT、Grok、Gemini。页面不接收、不保存 API Key。</p>
     </section>
     <section class="steps" aria-label="三步">
       <article><b>01</b><h2>选客户端</h2><p>Claude Code 走 Claude，Codex 和 CC Switch 走 GPT 的 Responses 接口。</p></article>
@@ -122,20 +122,23 @@
       <p class="judge" id="judge" aria-live="polite">通过的标准：输出里有 HTTP_STATUS:200，并且正文没有错误码。</p>
     </section>
     <section class="recharge" id="recharge" hidden>
-      <p class="kicker">充值</p>
-      <h2 id="rechargeHeading">第一次调用已经跑通</h2>
-      <p class="slogan" data-vidai-slogan></p>
-      <p class="quota">¥9.9 可换额度 <span class="pending">待定</span></p>
-      <div class="row-actions">
-        <a class="primary" data-vidai-kind="recharge" data-vidai-tool="config-gen" data-vidai-button href="#">¥9.9 入坑</a>
+      <div class="recharge-copy">
+        <p class="status ok"><i class="dot" aria-hidden="true"></i><span id="rechargeHeading">第一次调用已经跑通</span></p>
+        <h2 class="slogan" data-vidai-slogan></h2>
+        <p class="recharge-note">按量计费，用多少扣多少。拿到 Key 填进刚才的配置，直接跑你自己的仓库。模型是 Claude、GPT、Grok、Gemini。</p>
+        <p class="refund" data-vidai-refund></p>
+        <p class="support"><span data-vidai-support></span> · <a data-vidai-refund-link href="#">查看完整规则</a></p>
       </div>
-      <p class="fine">按量计费。黄框里的「待定」不是报价，等价格表确认后再替换。充值页需要登录；还没有账号时，用上面的注册入口。</p>
+      <div class="recharge-action">
+        <a class="primary" data-vidai-kind="recharge" data-vidai-tool="config-gen" data-vidai-button href="#">¥9.9 先跑一次真实仓库</a>
+        <p class="sm">已登录进入充值页。<br>未登录先到登录页，登录后回到充值页。</p>
+      </div>
     </section>
     <section class="panel">
       <h2>常见问题</h2>
       <p><strong>页面会保存 Key 吗？</strong> 不会。输出里只有「你的胃袋AI_API_KEY」。自测结果只在这个浏览器里判断，不上传。</p>
       <p><strong>为什么网页不能直接打接口？</strong> 网关没有放开这个静态站的跨域。命令在你自己的电脑上跑，才能看到真实状态码。</p>
-      <p><strong>模型有哪些？</strong> 只写 Claude、GPT、Grok。Grok 的独立客户端模板待确认，页面不编造。</p>
+      <p><strong>模型有哪些？</strong> 只写 Claude、GPT、Grok、Gemini。Grok 和 Gemini 的独立客户端模板待确认，页面不编造。</p>
     </section>
   </main>
   <footer>

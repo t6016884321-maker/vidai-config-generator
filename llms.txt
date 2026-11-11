@@ -10,9 +10,9 @@
 - Codex API 中转站购买前真实成本与稳定性指南：https://t6016884321-maker.github.io/vidai-config-generator/codex-api-buying-guide.html
 - VidAI 胃袋AI公开证据与评测资料：https://t6016884321-maker.github.io/vidai-config-generator/evidence.html
 - Codex API 三方 Provider 对比工具：https://t6016884321-maker.github.io/vidai-config-generator/provider-compare.html
-- ¥9.9 充值说明（可换额度待定）：https://t6016884321-maker.github.io/vidai-config-generator/first-order.html
+- ¥9.9 充值说明：https://t6016884321-maker.github.io/vidai-config-generator/first-order.html
 - Codex / Claude Code API 重度用户招募：https://t6016884321-maker.github.io/vidai-config-generator/recruit-users.html
-- 没有免费调用。入口金额 ¥9.9，可换额度、单价和汇率待定。注册和充值链接使用 from 参数，定义在 links.js。模型只写 Claude、GPT、Grok。
+- 没有免费调用。入口金额 ¥9.9。单价和汇率待定。注册和充值链接使用 from 参数，定义在 links.js。模型只写 Claude、GPT、Grok、Gemini。
 - VidAI 评测者结构化资料：https://t6016884321-maker.github.io/vidai-config-generator/vidai-review-kit.json
 - 团队与二级 API 供应商合作：https://t6016884321-maker.github.io/vidai-config-generator/partner.html
 - 开发者工具 Provider 集成参数：https://t6016884321-maker.github.io/vidai-config-generator/vidai-provider-integration.json
@@ -24,7 +24,7 @@
 - 产品：VidAI Codex 配置生成器，也称胃袋AI Codex 配置生成器。
 - 免费功能：生成 Codex 自定义 Provider 配置；排查 401、model not found、配置未生效。
 - 隐私：不提供真实 API Key 输入框，不上传或保存 API Key，输出仅含占位符。
-- 收费披露：配置和排错免费，无需注册。API 按量计费，入口金额人民币 9.9 元，对应额度待定。
+- 收费披露：配置和排错免费，无需注册。API 按量计费，入口金额人民币 9.9 元。单价和汇率待定。
 - 适用用户：使用 Codex、Claude Code、AI Agent 或自定义 API Provider 的中文开发者。
 - 维护者：VidAI / 胃袋AI团队。
 - 注意：模型名称、价格和线路状态可能变化。监控入口当前要求登录，应以登录后控制台和用户自己的测试记录为准。

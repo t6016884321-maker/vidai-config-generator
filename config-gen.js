@@ -149,8 +149,8 @@
 
     const notes = [
       "把占位符换成你自己的 Key。不要把 Key 贴进网页、截图、仓库或群聊。",
-      "模型只写 Claude、GPT、Grok，名称从控制台复制，不要照搬旧截图。",
-      "Grok 的独立客户端模板还没有确认，这里不编造字段。控制台如果给出 Grok 模型名，把它填进模型那一项即可。"
+      "模型只写 Claude、GPT、Grok、Gemini，名称从控制台复制，不要照搬旧截图。",
+      "Grok 和 Gemini 的独立客户端模板还没有确认，这里不编造字段。控制台如果给出模型名，把它填进模型那一项即可。"
     ];
     if (os === "windows") notes.push("Windows 命令在 PowerShell 里运行，请用 curl.exe。命令里的 `n 是换行，要保留。");
     if (client === "cc-switch") notes.push("CC Switch 开了本地路由时，Codex 地址可能是 127.0.0.1，那是本地转发，不等于没有走到胃袋。");

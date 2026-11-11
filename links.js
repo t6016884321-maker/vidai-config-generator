@@ -11,7 +11,9 @@
   const ORIGIN = "https://api.david-ai.net";
   const PATHS = {
     register: "/register",
-    recharge: "/purchase"
+    recharge: "/purchase",
+    // TODO: 上线前换成服务条款退款章节的地址。在那之前不要改成编造的链接。
+    refundTerms: "#"
   };
   const TOOLS = {
     configGen: "config-gen",
@@ -31,9 +33,21 @@
   };
   const COPY = {
     slogan: "9.9 元入坑，我们不免费，但我们真的帮你解决问题",
-    button: "¥9.9 入坑",
+    button: "¥9.9 先跑一次真实仓库",
+    refund: "不满意随时可退：联系客服申请，未使用部分原路退回",
+    support: "官方 QQ 群 1026331764",
+    refundLink: "查看完整规则",
+    models: "Claude、GPT、Grok、Gemini",
     pending: "待定"
   };
+
+  function fillSlogan(el) {
+    el.replaceChildren();
+    el.append("9.9 元入坑，");
+    const em = document.createElement("em");
+    em.textContent = "我们不免费，但我们真的帮你解决问题";
+    el.append(em);
+  }
 
   function gatewayUrl(kind, tool) {
     const path = PATHS[kind];
@@ -54,11 +68,21 @@
         console.error(err);
       }
     });
-    doc.querySelectorAll("[data-vidai-slogan]").forEach((el) => {
-      el.textContent = COPY.slogan;
-    });
+    doc.querySelectorAll("[data-vidai-slogan]").forEach(fillSlogan);
     doc.querySelectorAll("[data-vidai-button]").forEach((el) => {
       el.textContent = COPY.button;
+    });
+    doc.querySelectorAll("[data-vidai-refund]").forEach((el) => {
+      el.textContent = COPY.refund;
+    });
+    doc.querySelectorAll("[data-vidai-support]").forEach((el) => {
+      el.textContent = COPY.support;
+    });
+    doc.querySelectorAll("[data-vidai-refund-link]").forEach((el) => {
+      el.textContent = COPY.refundLink;
+      el.setAttribute("href", PATHS.refundTerms);
+      el.removeAttribute("target");
+      el.removeAttribute("rel");
     });
   }
 

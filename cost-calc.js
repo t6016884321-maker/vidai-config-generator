@@ -3,7 +3,7 @@
   if (typeof module === "object" && module.exports) module.exports = api;
   root.VidaiCost = api;
 })(typeof globalThis !== "undefined" ? globalThis : this, function () {
-  const MODELS = ["Claude", "GPT", "Grok"];
+  const MODELS = ["Claude", "GPT", "Grok", "Gemini"];
 
   function parseTokens(value, blankIsZero) {
     if (value === "" || value == null) return blankIsZero ? 0 : null;
@@ -28,7 +28,7 @@
   function summarize(input) {
     const errors = [];
     const model = MODELS.includes(input.model) ? input.model : "";
-    if (!model) errors.push("请选择 Claude、GPT 或 Grok。");
+    if (!model) errors.push("请选择 Claude、GPT、Grok 或 Gemini。");
     const inputTokens = parseTokens(input.inputTokens, true);
     const outputTokens = parseTokens(input.outputTokens, true);
     const cachedTokens = parseTokens(input.cachedTokens, true);
@@ -58,7 +58,6 @@
       successTasks,
       unitPrice: "待定",
       exchangeRate: "待定",
-      quota: "待定",
       cost: "待定"
     };
   }

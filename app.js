@@ -50,7 +50,7 @@
       secret: "这段内容里像是有真实密钥。请删掉密钥，只保留 HTTP_STATUS 和响应正文。",
       auth: "网关没有接受这把 Key。先确认占位符已经换成控制台里的 Key。还没有 Key 的话，用上面的注册入口。",
       model: "请求到了网关，但模型名对不上。请从控制台复制当前的 Claude、GPT 或 Grok 模型名，改完再跑。",
-      quota: "这次没有跑通，响应里提到额度或余额。充值后用同一条命令再测一次。",
+      quota: "这次没有跑通，响应里提到余额不足。充值后用同一条命令再测一次。",
       "http-error": `返回了 HTTP ${result.code}，还不能算跑通。请看正文里的错误信息，不要根据这一次去充值。`,
       unrecognized: "没有看到 HTTP_STATUS。请把整段输出贴回来，要包含 HTTP_STATUS 那一行。"
     };
@@ -65,7 +65,7 @@
     if (result.status === "quota") {
       box.className = "judge bad";
       box.textContent = messages.quota;
-      heading.textContent = "调用被额度拦住了";
+      heading.textContent = "余额不足，先充值再测";
       recharge.hidden = false;
       return;
     }

@@ -23,8 +23,7 @@
       ["缓存输入 Token", String(result.cachedTokens)],
       ["输入 / 输出 / 缓存单价", result.unitPrice],
       ["汇率", result.exchangeRate],
-      ["估算花费", result.cost],
-      ["¥9.9 可换额度", result.quota]
+      ["估算花费", result.cost]
     ];
     if (result.billedAttempts != null) lines.push(["计费尝试总次数", String(Math.round(result.billedAttempts * 100) / 100)]);
     if (result.successTasks != null) lines.push(["预计成功任务", String(Math.round(result.successTasks * 100) / 100)]);
@@ -47,7 +46,7 @@
     });
     const note = document.createElement("p");
     note.className = "fine";
-    note.textContent = "花费、单价、汇率和额度都是待定。这里没有使用任何编造的价格，不能当成报价。计费尝试和成功任务只是把你填的次数做乘法。";
+    note.textContent = "花费、单价和汇率都是待定。这里没有使用任何编造的价格，不能当成报价。计费尝试和成功任务只是把你填的次数做乘法。";
     box.appendChild(note);
     recharge.hidden = false;
   }
