@@ -9,9 +9,10 @@
   },
   "registration": {
     "base_url": "https://api.david-ai.net/register",
-    "affiliate_code": "5SM2BCS7ML2H",
-    "campaign": "tool_distribution_202610",
-    "url_template": "https://api.david-ai.net/register?aff=5SM2BCS7ML2H&utm_source={project}&utm_medium=provider_preset&utm_campaign=tool_distribution_202610&utm_content=register"
+    "recharge_url": "https://api.david-ai.net/purchase",
+    "attribution_parameter": "from",
+    "attribution_defined_in": "links.js",
+    "url_template": "https://api.david-ai.net/register?from={tool}"
   },
   "providers": {
     "codex": {
@@ -29,11 +30,11 @@
   "commercial_facts": {
     "free_api_trial": false,
     "minimum_recharge_cny": 9.9,
-    "api_credit_usd": 50,
-    "invited_user_first_recharge_bonus_percent": 5,
-    "promoter_first_recharge_rebate_percent": 5,
-    "promoter_repeat_recharge_rebate_percent": 3,
-    "rebate_type": "in-platform API rebate quota convertible to account balance, not advertised as cash commission"
+    "api_credit_usd": null,
+    "unit_prices": null,
+    "exchange_rate": null,
+    "status": "pending",
+    "note": "Credit amount, unit prices and exchange rate are pending. Do not publish bonuses or invite rewards."
   },
   "public_endpoint_checks": [
     {
@@ -75,6 +76,8 @@
     "lowest price on the market",
     "anonymous public SLA",
     "cash commission",
-    "official endorsement by OpenAI, Anthropic, CC Switch, or any integration partner"
+    "official endorsement by OpenAI, Anthropic, CC Switch, or any integration partner",
+    "fabricated unit prices, exchange rates, or credit amounts",
+    "recharge bonuses or invite rewards"
   ]
 }

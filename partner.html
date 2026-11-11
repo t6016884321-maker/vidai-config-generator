@@ -26,8 +26,8 @@
     <section class="partner-hero">
       <p class="kicker">TEAM · STUDIO · RESELLER</p>
       <h1>自用、团队使用，<br><em>也支持二级供应商合作。</em></h1>
-      <p class="lead">个人用户可从 ¥9.9 / $50 API 额度开始；团队和二级供应商先拿真实任务核对模型、协议、长任务和扣费，验证通过，再谈批量与长期合作。</p>
-      <div class="partner-actions"><a class="primary tracked-partner" data-content="hero" href="#">先注册并小额验证 →</a><a class="secondary" href="first-order.html?utm_source=partner_page&amp;utm_medium=owned&amp;utm_campaign=first_order_20261014">查看 ¥9.9 首单 →</a></div>
+      <p class="lead">个人用户从 ¥9.9 开始，可换额度 <span class="pending">待定</span>。团队和二级供应商先拿真实任务核对模型、协议、长任务和扣费，验证通过，再谈批量与长期合作。模型只写 Claude、GPT、Grok。</p>
+      <div class="partner-actions"><a class="primary" data-vidai-kind="register" data-vidai-tool="partner" href="#">去注册</a><a class="secondary" data-vidai-kind="recharge" data-vidai-tool="partner" data-vidai-button href="#">¥9.9 入坑</a></div>
       <p class="plain-link">官网：https://api.david-ai.net</p>
     </section>
     <section class="path" aria-label="合作流程">
@@ -47,11 +47,9 @@
       </div>
     </section>
     <section class="facts-box"><strong>合作前请准备：</strong><ul><li>使用的客户端或 SDK、目标模型和典型任务；</li><li>预计用量范围，以及最关注的失败类型；</li><li>一份不含密钥、私有代码和个人信息的脱敏测试记录。</li></ul></section>
-    <section class="final-cta"><div><p class="kicker">START WITH EVIDENCE</p><h2>先跑通，再合作。</h2><p>当前模型、价格和线路状态以控制台与实时页面为准。</p></div><div class="partner-actions"><a class="primary tracked-partner" data-content="bottom" href="#">打开注册入口 →</a><a class="secondary" href="https://t.me/ngjiabi_api" target="_blank" rel="noopener">进入支持频道</a></div></section>
+    <section class="final-cta"><div><p class="kicker">START WITH EVIDENCE</p><h2>先跑通，再合作。</h2><p>当前模型、价格和线路状态以控制台与实时页面为准。</p></div><div class="partner-actions"><a class="primary" data-vidai-kind="register" data-vidai-tool="partner" href="#">去注册</a><a class="secondary" href="https://t.me/ngjiabi_api" target="_blank" rel="noopener">进入支持频道</a></div></section>
   </main>
   <footer><span>VidAI／胃袋AI团队维护</span><span><a href="product.html">产品事实与披露</a> · <a href="codex-api-gateway-checklist.html">API 验收清单</a></span></footer>
-  <script>
-    document.querySelectorAll('.tracked-partner').forEach(link=>{const url=new URL('https://api.david-ai.net/register');url.searchParams.set('aff','5SM2BCS7ML2H');url.searchParams.set('utm_source','partner_page');url.searchParams.set('utm_medium','owned');url.searchParams.set('utm_campaign','team_reseller_202610');url.searchParams.set('utm_content',link.dataset.content);link.href=url.toString();link.target='_blank';link.rel='noopener'});
-  </script>
+  <script src="links.js"></script>
 </body>
 </html>

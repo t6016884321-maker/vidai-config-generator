@@ -3,180 +3,154 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Codex 自定义 Provider 配置生成器与排错指南｜VidAI 胃袋AI</title>
-  <meta name="description" content="免费生成 Codex 自定义 Provider 配置，排查 401、model not found、配置未生效与长任务超时。支持 macOS、Windows、Linux，不上传或保存 API Key。">
-  <meta name="keywords" content="Codex 配置, Codex 自定义 Provider, Codex API 中转, Codex 401, model not found, 胃袋AI, VidAI, API 中转站">
-  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
-  <meta name="author" content="VidAI 胃袋AI团队">
-  <meta name="google-site-verification" content="zCO4l21Xhjta92qjM3qLbE5yF8Vx_c5KX6OaqrWU57o">
+  <title>一键配置 Claude Code / Codex 并跑通首次调用｜胃袋AI</title>
+  <meta name="description" content="为 Claude Code 和 Codex 生成胃袋AI配置，并给出可在本机运行的 curl 连通自测。没有 Key 去注册。页面不保存 API Key。模型只写 Claude、GPT、Grok。">
+  <meta name="robots" content="index,follow,max-image-preview:large">
   <link rel="canonical" href="https://t6016884321-maker.github.io/vidai-config-generator/">
-  <link rel="alternate" type="text/plain" href="llms.txt" title="LLM-friendly product information">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="zh_CN">
-  <meta property="og:site_name" content="VidAI 胃袋AI">
-  <meta property="og:title" content="Codex 自定义 Provider 配置生成器与排错指南">
-  <meta property="og:description" content="免费生成 Codex 配置并排查 401、模型不存在和配置未生效；不上传、不保存 API Key。">
+  <meta property="og:title" content="一键配置 Claude Code / Codex 并跑通首次调用">
+  <meta property="og:description" content="生成配置，复制 curl 在本机验证第一次调用。浏览器跨域请求会被网关拦截。">
   <meta property="og:url" content="https://t6016884321-maker.github.io/vidai-config-generator/">
   <meta property="og:image" content="https://t6016884321-maker.github.io/vidai-config-generator/vidai-poster-v3.png">
-  <meta property="og:image:width" content="1024">
-  <meta property="og:image:height" content="1536">
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Codex 自定义 Provider 配置生成器｜VidAI 胃袋AI">
-  <meta name="twitter:description" content="免费生成配置、排查常见错误，不上传或保存 API Key。">
-  <meta name="twitter:image" content="https://t6016884321-maker.github.io/vidai-config-generator/vidai-poster-v3.png">
+  <script>
+    (function () {
+      try {
+        var saved = localStorage.getItem("vidai-theme");
+        var theme = saved || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", theme);
+      } catch (err) {
+        document.documentElement.setAttribute("data-theme", "light");
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="warm.css">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@graph": [
-      {
-        "@type": "WebApplication",
-        "@id": "https://t6016884321-maker.github.io/vidai-config-generator/#app",
-        "name": "VidAI Codex 配置生成器",
-        "alternateName": ["胃袋AI Codex 配置生成器", "Codex 自定义 Provider 配置生成器"],
-        "url": "https://t6016884321-maker.github.io/vidai-config-generator/",
-        "description": "免费生成 Codex 自定义 Provider 配置并排查常见接入错误；配置仅在浏览器本地生成。",
-        "applicationCategory": "DeveloperApplication",
-        "operatingSystem": "macOS, Windows, Linux",
-        "inLanguage": "zh-CN",
-        "isAccessibleForFree": true,
-        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "CNY"},
-        "featureList": ["Codex 自定义 Provider 配置生成", "401 排错", "model not found 排错", "配置未生效排错", "不上传或保存 API Key"],
-        "publisher": {"@type": "Organization", "name": "VidAI 胃袋AI", "url": "https://api.david-ai.net/"},
-        "sameAs": ["https://github.com/t6016884321-maker/vidai-ai-coding-guide", "https://t.me/ngjiabi_api"]
-      },
-      {
-        "@type": "FAQPage",
-        "@id": "https://t6016884321-maker.github.io/vidai-config-generator/#faq",
-        "mainEntity": [
-          {"@type": "Question", "name": "Codex 自定义 Provider 配置生成器免费吗？", "acceptedAnswer": {"@type": "Answer", "text": "配置生成器和排错指南免费使用，无需注册。页面另有可选的 9.9 元真实仓库试跑服务。"}},
-          {"@type": "Question", "name": "页面会上传或保存 API Key 吗？", "acceptedAnswer": {"@type": "Answer", "text": "不会。页面不提供真实 API Key 输入框，配置仅在当前浏览器生成，输出使用占位符。"}},
-          {"@type": "Question", "name": "可以排查哪些 Codex 错误？", "acceptedAnswer": {"@type": "Answer", "text": "目前提供 401、model not found 和自定义 Provider 配置未生效的排错指南。"}}
-        ]
-      }
-    ]
+    "@type": "WebApplication",
+    "name": "胃袋AI一键配置生成器",
+    "url": "https://t6016884321-maker.github.io/vidai-config-generator/",
+    "applicationCategory": "DeveloperApplication",
+    "operatingSystem": "macOS, Windows, Linux",
+    "inLanguage": "zh-CN",
+    "isAccessibleForFree": true,
+    "description": "生成 Claude Code 与 Codex 配置，并提供本机 curl 连通自测。不上传 API Key。",
+    "publisher": {"@type": "Organization", "name": "VidAI 胃袋AI", "url": "https://api.david-ai.net/"}
   }
   </script>
-  <link rel="stylesheet" href="styles.css">
-  <link rel="stylesheet" href="challenge.css">
 </head>
 <body>
-  <div class="grid" aria-hidden="true"></div>
   <header class="topbar">
-    <a class="brand" href="https://api.david-ai.net" target="_blank" rel="noopener"><span>胃</span> VidAI · 胃袋AI</a>
-    <nav class="top-links" aria-label="快捷入口">
-      <a class="support-link" href="codex-api-real-cost.html">真实成本计算</a>
-      <a class="support-link" href="codex-api-buying-guide.html">购买前避坑</a>
-      <a class="support-link" href="provider-compare.html">三方对比</a>
-      <a class="support-link" href="evidence.html">公开证据</a>
-      <a class="support-link" href="codex-api-self-test.html">API 兼容性自测</a>
-      <a class="support-link" href="api-trial.html">API 小额实测</a>
-      <a class="support-link" href="first-order.html">¥9.9 首单</a>
-      <a class="support-link" href="recruit-users.html">招募重度用户</a>
-      <a class="support-link" href="partner.html">团队与批发合作</a>
-      <a class="support-link" href="https://t.me/ngjiabi_api" target="_blank" rel="noopener">免费排错群</a>
-      <a class="status-link" href="evidence.html"><i></i> 查看公开证据</a>
+    <a class="brand" href="./"><i>胃</i> 胃袋AI</a>
+    <nav class="nav" aria-label="页面">
+      <a href="./#generator" aria-current="page">配置生成</a>
+      <a href="codex-api-real-cost.html">成本计算器</a>
+      <a href="cc-switch-vidai-provider.html">CC Switch</a>
+      <button class="theme-toggle" type="button" data-theme-toggle>切换暗色</button>
     </nav>
   </header>
-  <main>
+  <main class="wrap">
     <section class="hero">
-      <div class="hero-copy">
-        <p class="kicker">CODEX DEEP-USE TRIAL</p>
-        <h1>别先买大套餐。<br><em>¥9.9 跑一次真实仓库。</em></h1>
-        <p class="lead">读项目、跨文件修改、跑测试。用自己的任务验证稳定性和成本，再决定是否继续。</p>
-        <div class="actions">
-          <a class="primary tracked-first-order" data-source="generator_hero" href="first-order.html">¥9.9 开始实测 <b>→</b></a>
-          <a class="secondary" href="#generator">先免费生成配置</a>
+      <p class="kicker">配置生成 · 连通自测</p>
+      <h1>不会配，也能把第一次调用跑通。</h1>
+      <p class="lead">选 Claude Code、Codex 或 CC Switch，生成配置，再复制一条 curl 到自己的终端。模型只写 Claude、GPT、Grok。页面不接收、不保存 API Key。</p>
+    </section>
+    <section class="steps" aria-label="三步">
+      <article><b>01</b><h2>选客户端</h2><p>Claude Code 走 Claude，Codex 和 CC Switch 走 GPT 的 Responses 接口。</p></article>
+      <article><b>02</b><h2>复制配置</h2><p>配置里只有占位符。Key 和模型名到控制台复制。</p></article>
+      <article><b>03</b><h2>本机自测</h2><p>浏览器直接请求会被跨域拦住，所以命令在你自己的电脑上跑。</p></article>
+    </section>
+    <section class="register-card" id="register">
+      <div>
+        <h2>还没有 Key？</h2>
+        <p class="fine">用邮箱注册，到控制台复制 Key 和模型名，再回来生成配置。不要把 Key 发到这个页面。</p>
+      </div>
+      <a class="primary" data-vidai-kind="register" data-vidai-tool="config-gen" href="#">去注册</a>
+    </section>
+    <section class="layout" id="generator">
+      <div class="panel stack">
+        <div>
+          <label>客户端</label>
+          <div class="choices" role="radiogroup" aria-label="客户端">
+            <button type="button" data-client="claude" role="radio" aria-checked="true">Claude Code</button>
+            <button type="button" data-client="codex" role="radio" aria-checked="false">Codex</button>
+            <button type="button" data-client="cc-switch" role="radio" aria-checked="false">CC Switch</button>
+          </div>
         </div>
-        <p class="reward">¥9.9 获得 $50 API 额度；通过邀请链接注册并完成首充，按当前站内规则另有 5% 奖励。</p>
-      </div>
-      <aside class="proof-card" aria-label="可核验数据">
-        <div class="proof-head"><span>CODEX 主线路</span><b>监控快照</b></div>
-        <strong>99.26<small>%</small></strong>
-        <p>近 7 天可用性</p>
-        <dl><div><dt>记录日期</dt><dd>2026-09-07</dd></div><div><dt>当前状态</dt><dd>以实时页为准</dd></div></dl>
-        <a href="https://api.david-ai.net/monitor" target="_blank" rel="noopener">登录后核对监控 →</a>
-        <small>不同线路表现不同；数字会随监控更新，不构成永久可用性承诺。</small>
-      </aside>
-    </section>
-    <section class="challenge">
-      <p class="kicker">THE 3-TASK TEST</p>
-      <h2>参加 Codex 真实仓库挑战</h2>
-      <p class="section-lead">不是抽奖，也不要求先替我们宣传。用你自己的仓库完成三项任务，按统一模板记录成功与失败，再决定这条线路是否适合你。</p>
-      <div class="tasks">
-        <article><b>01</b><h3>读懂仓库</h3><p>让 Codex 只读分析架构、风险点和测试入口。</p></article>
-        <article><b>02</b><h3>跨文件修改</h3><p>完成一个可验收的小功能，保留清晰 diff。</p></article>
-        <article><b>03</b><h3>跑完测试</h3><p>记录总耗时、重试次数、Token 与实际扣费。</p></article>
-      </div>
-      <div class="challenge-actions">
-        <a class="primary" href="https://github.com/t6016884321-maker/vidai-ai-coding-guide/issues/new?template=codex-real-repo-challenge.yml" target="_blank" rel="noopener">提交挑战记录 →</a>
-        <a class="secondary" href="https://github.com/t6016884321-maker/vidai-ai-coding-guide/blob/main/BENCHMARK.md" target="_blank" rel="noopener">查看完整测试模板</a>
-      </div>
-      <p class="challenge-note">Issue 只填写脱敏结果；不要提交 API Key、私有代码、账单或个人信息。成功和失败都会保留。</p>
-    </section>
-    <section class="problem-hub">
-      <p class="kicker">FIX THE ERROR FIRST</p>
-      <h2>遇到报错？先用免费排错指南</h2>
-      <p class="section-lead">不需要注册，不需要充值。先解决最常见的三类 Codex 自定义 Provider 问题。</p>
-      <div class="problem-grid">
-        <a href="codex-cc-switch-local-proxy-127001.html"><span>127.0.0.1</span><h3>CC Switch 本地代理</h3><p>判断本地路由是否正常，排查 15721 端口、直连状态与 WSL2。</p><b>打开指南 →</b></a>
-        <a href="codex-api-real-cost.html"><span>COST</span><h3>每次成功任务成本</h3><p>把单价、重试和任务成功率放进同一个公式。</p><b>打开计算器 →</b></a>
-        <a href="codex-api-buying-guide.html"><span>BUY</span><h3>中转站购买前避坑</h3><p>用 5 项验收判断线路是否适合真实仓库。</p><b>打开指南 →</b></a>
-        <a href="https://github.com/t6016884321-maker/vidai-ai-coding-guide/blob/main/docs/codex-401.md" target="_blank" rel="noopener"><span>401</span><h3>API Key 未生效</h3><p>安全确认变量是否存在，不在终端打印真实密钥。</p><b>打开指南 →</b></a>
-        <a href="https://github.com/t6016884321-maker/vidai-ai-coding-guide/blob/main/docs/codex-model-not-found.md" target="_blank" rel="noopener"><span>MODEL</span><h3>model not found</h3><p>区分模型名、Provider 和线路问题，避免照搬旧截图。</p><b>打开指南 →</b></a>
-        <a href="https://github.com/t6016884321-maker/vidai-ai-coding-guide/blob/main/docs/codex-config-not-applied.md" target="_blank" rel="noopener"><span>CONFIG</span><h3>配置没有生效</h3><p>核对用户级文件、TOML 层级和项目配置限制。</p><b>打开指南 →</b></a>
-      </div>
-      <div class="support-cta">
-        <div><b>不确定线路是否适合真实仓库？</b><span>用 8 项免费自测先检查认证、SSE、工具调用、长任务和扣费。</span></div>
-        <a href="codex-api-self-test.html">开始兼容性自测 →</a>
-      </div>
-      <div class="support-cta">
-        <div><b>指南没解决？本周开放免费排错</b><span>带上工具、系统、错误码和脱敏后的错误信息；请勿发送真实 API Key。</span></div>
-        <a href="https://t.me/ngjiabi_api" target="_blank" rel="noopener">进入 Telegram 提问 →</a>
-      </div>
-    </section>
-    <section class="generator" id="generator">
-      <div class="generator-intro">
-        <p class="kicker">FREE CONFIG GENERATOR</p>
-        <h2>先生成，再决定</h2>
-        <p>配置只在当前浏览器生成，不上传、不保存 API Key。复制前可完整审查。</p>
-        <div class="privacy"><b>安全提示</b><span>不要在页面、截图、群聊或仓库中粘贴真实 API Key。</span></div>
-      </div>
-      <div class="workspace" aria-label="Codex 配置生成器">
-        <div class="form-card">
-          <label for="model">控制台当前模型名称</label>
-          <input id="model" type="text" value="从胃袋AI控制台复制的模型名" maxlength="160" autocomplete="off">
-          <p class="hint">模型会变化，不要照搬旧截图中的名称。</p>
-          <div class="segmented" id="osTabs" role="radiogroup" aria-label="操作系统">
-            <button class="active" type="button" data-os="mac" role="radio" aria-checked="true">macOS</button>
+        <div>
+          <label>系统</label>
+          <div class="choices" role="radiogroup" aria-label="操作系统">
+            <button type="button" data-os="mac" role="radio" aria-checked="true">macOS</button>
             <button type="button" data-os="linux" role="radio" aria-checked="false">Linux</button>
             <button type="button" data-os="windows" role="radio" aria-checked="false">Windows</button>
           </div>
-          <label class="check"><input id="persist" type="checkbox"><span>同时生成长期保存命令</span></label>
         </div>
-        <div class="output-card">
-          <div class="output-top"><strong>~/.codex/config.toml</strong><button id="copyBtn" type="button">复制全部</button></div>
-          <pre><code id="output"></code></pre>
-          <div id="copyState" class="copy-state" aria-live="polite"></div>
-          <a class="after-copy-support" href="https://t.me/ngjiabi_api" target="_blank" rel="noopener">配置后仍有问题？进群提交脱敏错误 →</a>
+        <div>
+          <label for="model">控制台里的模型名</label>
+          <input id="model" type="text" maxlength="160" autocomplete="off" placeholder="从控制台复制，不要手写过期名字">
+          <p class="hint" id="modelHint">先留空也可以生成命令。占位符不换成真实模型名，调用不会成功。</p>
         </div>
+        <label class="check" id="persistLabel"><input id="persist" type="checkbox"><span>同时生成写入本机环境变量的命令。Key 会进命令历史，公开机器上不要勾。</span></label>
+      </div>
+      <div class="panel stack">
+        <div class="output-top">
+          <strong id="configTitle">配置</strong>
+          <button class="ghost" id="copyConfig" type="button">复制配置</button>
+        </div>
+        <p class="hint" id="configPath"></p>
+        <pre><code id="configOut"></code></pre>
+        <div id="shellWrap" hidden>
+          <div class="output-top"><strong>环境变量</strong><button class="ghost" id="copyShell" type="button">复制命令</button></div>
+          <pre><code id="shellOut"></code></pre>
+        </div>
+        <ul class="note-list" id="notes"></ul>
+        <p class="copy-state" id="copyState" aria-live="polite"></p>
       </div>
     </section>
-    <section class="faq" id="faq">
-      <p class="kicker">CODEX FAQ</p>
-      <h2>Codex 配置常见问题</h2>
-      <div class="faq-list">
-        <details open><summary>Codex 自定义 Provider 配置生成器免费吗？</summary><p>配置生成器和排错指南免费使用，无需注册。页面另有可选的 ¥9.9 真实仓库试跑服务，用自己的任务核验线路表现。</p></details>
-        <details><summary>页面会上传或保存 API Key 吗？</summary><p>不会。页面不提供真实 API Key 输入框，配置只在当前浏览器生成，输出使用占位符。请勿在网页、截图或群聊中粘贴真实密钥。</p></details>
-        <details><summary>可以排查哪些 Codex 错误？</summary><p>目前提供 401、model not found 和自定义 Provider 配置未生效三类指南，并说明如何安全核对环境变量、模型名和 TOML 配置。</p></details>
-        <details><summary>VidAI / 胃袋AI是什么？</summary><p>VidAI（胃袋AI）提供面向 Codex、Claude Code 和 AI Agent 用户的 API 服务。本页由 VidAI / 胃袋AI团队维护，免费工具与可选付费服务已明确区分。</p></details>
+    <section class="panel stack" id="self-test">
+      <p class="kicker">连通自测</p>
+      <h2>在自己的终端跑这一条</h2>
+      <p class="callout">2026-11-11 从浏览器跨域请求 <code>api.david-ai.net</code> 会被拦住：<code>OPTIONS</code> 返回 403，<code>GET</code> / <code>POST</code> 的响应里没有 <code>Access-Control-Allow-Origin</code>。所以这里不提供 Key 输入框，只生成 curl，让你在本机运行。</p>
+      <div class="output-top"><strong>curl</strong><button class="ghost" id="copyCurl" type="button">复制 curl</button></div>
+      <pre><code id="curlOut"></code></pre>
+      <label for="paste">把终端输出贴回来</label>
+      <textarea id="paste" autocomplete="off" spellcheck="false" placeholder="只贴 HTTP_STATUS 和响应正文。如果里面有 Key，先删掉再贴。"></textarea>
+      <div class="row-actions">
+        <button class="secondary" id="checkPaste" type="button">检查自测结果</button>
       </div>
+      <p class="judge" id="judge" aria-live="polite">通过的标准：输出里有 HTTP_STATUS:200，并且正文没有错误码。</p>
     </section>
-    <section class="final-cta">
-      <div><p class="kicker">READY WHEN YOU ARE</p><h2>用真实任务做决定。</h2><p>最低 ¥9.9 开始，不需要先相信广告。</p></div>
-      <a class="primary tracked-first-order" data-source="generator_bottom" href="first-order.html">¥9.9 开始实测 →</a>
+    <section class="recharge" id="recharge" hidden>
+      <p class="kicker">充值</p>
+      <h2 id="rechargeHeading">第一次调用已经跑通</h2>
+      <p class="slogan" data-vidai-slogan></p>
+      <p class="quota">¥9.9 可换额度 <span class="pending">待定</span></p>
+      <div class="row-actions">
+        <a class="primary" data-vidai-kind="recharge" data-vidai-tool="config-gen" data-vidai-button href="#">¥9.9 入坑</a>
+      </div>
+      <p class="fine">按量计费。黄框里的「待定」不是报价，等价格表确认后再替换。充值页需要登录；还没有账号时，用上面的注册入口。</p>
+    </section>
+    <section class="panel">
+      <h2>常见问题</h2>
+      <p><strong>页面会保存 Key 吗？</strong> 不会。输出里只有「你的胃袋AI_API_KEY」。自测结果只在这个浏览器里判断，不上传。</p>
+      <p><strong>为什么网页不能直接打接口？</strong> 网关没有放开这个静态站的跨域。命令在你自己的电脑上跑，才能看到真实状态码。</p>
+      <p><strong>模型有哪些？</strong> 只写 Claude、GPT、Grok。Grok 的独立客户端模板待确认，页面不编造。</p>
     </section>
   </main>
-  <footer><span>胃袋AI，量大管饱可劲造。</span><span><a href="codex-api-self-test.html">免费兼容性自测</a> · <a href="partner.html">团队与批发合作</a> · <a href="product.html">产品事实与披露</a> · <a href="https://github.com/t6016884321-maker/vidai-ai-coding-guide" target="_blank" rel="noopener">完整教程与排错</a></span></footer>
+  <footer>
+    <span>胃袋AI，量大管饱可劲造。</span>
+    <span>
+      <a href="codex-api-real-cost.html">成本计算器</a> ·
+      <a href="codex-api-self-test.html">兼容性清单</a> ·
+      <a href="cc-switch-vidai-provider.html">CC Switch 说明</a> ·
+      <a href="product.html">产品事实</a>
+    </span>
+  </footer>
+  <script src="links.js"></script>
+  <script src="theme.js"></script>
+  <script src="self-test.js"></script>
+  <script src="config-gen.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

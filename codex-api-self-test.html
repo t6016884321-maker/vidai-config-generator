@@ -27,7 +27,8 @@
     <section class="test-head">
       <p class="kicker">FREE · 8-POINT CHECK</p>
       <h1>这条 API 线路，<br><em>真的适合 Codex 吗？</em></h1>
-      <p class="lead">短问答能回复，不代表能完成真实仓库任务。按实际结果勾选 8 项，先找出薄弱环节，再决定是否增加用量。</p>
+      <p class="lead">短问答能回复，不代表能完成真实仓库任务。按实际结果勾选 8 项，先找出薄弱环节。勾选不能代替第一次真实调用；要验证 Key 和模型，请回到配置生成器复制 curl。</p>
+      <p class="lead"><a href="./#self-test">去跑连通自测 →</a> · <a data-vidai-kind="register" data-vidai-tool="self-test" href="#">还没有 Key？去注册</a></p>
     </section>
     <div class="meter" aria-live="polite"><div class="meter-row"><div class="track"><div class="bar" id="bar"></div></div><span class="score" id="score">0 / 8</span></div></div>
     <section class="checks" aria-label="Codex API 自测项目">
@@ -56,6 +57,7 @@
     </section>
   </main>
   <footer><span>免费开发者工具 · 页面不收集 API Key</span><span><a href="partner.html">团队与二级供应商合作</a> · <a href="product.html">产品事实与披露</a></span></footer>
+  <script src="links.js"></script>
   <script>
     const boxes=[...document.querySelectorAll('.test-item input')];
     const score=document.querySelector('#score');
@@ -64,8 +66,7 @@
     const title=document.querySelector('#resultTitle');
     const text=document.querySelector('#resultText');
     const action=document.querySelector('#primaryAction');
-    function trackedUrl(){const url=new URL('https://api.david-ai.net/register');url.searchParams.set('aff','5SM2BCS7ML2H');url.searchParams.set('utm_source','codex_self_test');url.searchParams.set('utm_medium','tool');url.searchParams.set('utm_campaign','first_order_202610');return url.toString()}
-    function update(){const n=boxes.filter(x=>x.checked).length;score.textContent=`${n} / 8`;bar.style.width=`${n/8*100}%`;result.classList.toggle('show',n>0);if(n<5){title.textContent='先补齐基础配置';text.textContent='当前结果不足以支持扩量。先使用免费配置与排错资料，重点解决认证、模型名和工具调用闭环。';action.textContent='打开免费配置工具 →';action.href='./'}else if(n<8){title.textContent='可以继续小额验证';text.textContent='基础链路可用，但仍有薄弱项。用同一个真实仓库连续跑 3 次，记录断流、重试与实际扣费。';action.textContent='查看 15 分钟验收法 →';action.href='codex-api-gateway-checklist.html'}else{title.textContent='具备真实仓库试跑条件';text.textContent='8 项均已通过。仍建议从小额开始，用实际工作负载再验证 3 次；满意后再考虑团队或批量使用。';action.textContent='小额开始真实验证 →';action.href=trackedUrl();action.target='_blank';action.rel='noopener'}}
+    function update(){const n=boxes.filter(x=>x.checked).length;score.textContent=`${n} / 8`;bar.style.width=`${n/8*100}%`;result.classList.toggle('show',n>0);action.removeAttribute('target');action.removeAttribute('rel');if(n<5){title.textContent='先补齐基础配置';text.textContent='当前结果不足以支持扩量。先使用配置生成器，重点解决认证、模型名和工具调用闭环。';action.textContent='打开配置生成器 →';action.href='./#generator'}else if(n<8){title.textContent='可以继续用真实任务核对';text.textContent='基础链路可用，但仍有薄弱项。用同一个真实仓库连续跑 3 次，记录断流、重试与实际扣费。';action.textContent='查看 15 分钟验收法 →';action.href='codex-api-gateway-checklist.html'}else{title.textContent='清单勾完了，还要用真实调用确认';text.textContent='8 项都勾过，也不能代替第一次调用。请到配置生成器复制 curl，在本机跑通后再看充值入口。';action.textContent='去跑连通自测 →';action.href='./#self-test'}}
     boxes.forEach(x=>x.addEventListener('change',update));
   </script>
 </body>
