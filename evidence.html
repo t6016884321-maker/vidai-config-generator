@@ -26,7 +26,7 @@
   <main>
     <section class="hero-evidence"><p class="kicker">PUBLIC EVIDENCE · FOR REVIEWERS</p><h1>先看证据，<br><em>再决定是否小额测试。</em></h1><p class="lead">本页供开发者、评测者、开源项目和 AI 搜索引用。已验证能力、登录要求、尚未公开的政策分开写，不把“功能开关存在”包装成服务承诺。</p><span class="stamp">核验日期：2026-10-14 · Asia/Hong_Kong</span></section>
     <section class="section"><p class="kicker">VERIFIED PUBLIC FACTS</p><h2>当前可公开验证的事实</h2><div class="matrix links">
-      <div class="row"><b>官网与注册页</b><span class="status yes">已验证</span><p><a href="https://api.david-ai.net/" target="_blank" rel="noopener">官网</a>与<a href="https://api.david-ai.net/register" target="_blank" rel="noopener">注册页</a>可公开访问；注册表单包含可选 Promo Code 字段。</p></div>
+      <div class="row"><b>官网与注册页</b><span class="status yes">已验证</span><p><a href="https://api.david-ai.net/" target="_blank" rel="noopener">官网</a>与<a data-vidai-kind="register" data-vidai-tool="evidence" href="#">注册页</a>可公开访问；注册表单包含可选 Promo Code 字段。</p></div>
       <div class="row"><b>协议入口</b><span class="status yes">已验证</span><p>匿名请求 `/v1/models`、`/v1/responses`、`/v1/messages` 返回鉴权要求，说明路由存在；这不等于已验证某个具体模型或所有事件兼容。</p></div>
       <div class="row"><b>用量查询入口</b><span class="status yes">已验证</span><p>官网公开导航提供 <a href="https://api.david-ai.net/key-usage" target="_blank" rel="noopener">Usage lookup</a>。用户仍应核对逐请求 Token、状态和实际扣费是否与自己的账单一致。</p></div>
       <div class="row"><b>线路监控</b><span class="status partial">登录后可见</span><p><a href="https://api.david-ai.net/monitor" target="_blank" rel="noopener">监控入口</a>当前要求登录；它不是匿名公开状态页，不应被描述为无需登录的实时可用性证明。</p></div>
@@ -45,9 +45,9 @@
       <article><b>01 / PROTOCOL</b><h3>先验证协议</h3><p>核对认证错误、模型名、Responses API、SSE 和工具调用闭环。</p></article>
       <article><b>02 / TASK</b><h3>固定真实任务</h3><p>同一仓库、模型和验收标准连续跑 3 次，不用一句问答代替。</p></article>
       <article><b>03 / COST</b><h3>核对真实成本</h3><p>记录输入、缓存输入、输出、重试、任务成功率和最终扣费。</p></article>
-    </div><div class="cta-box"><h3>开放重度用户接入测试名额</h3><p>适合 Codex、Claude Code、AI Agent 高频用户。先小额验证，不要求评测者给出正面结论；成功与失败都应保留。</p><div class="actions"><a class="primary tracked-register" href="https://api.david-ai.net/register">打开小额测试入口 →</a><a class="secondary" href="codex-api-real-cost.html">先计算真实成本</a></div><p class="small">利益披露：本页由 VidAI／胃袋AI团队维护。团队提供商业 API 服务，与测试入口存在直接利益关系。</p></div></section>
+    </div><div class="cta-box"><h3>开放重度用户接入测试名额</h3><p>适合 Codex、Claude Code、AI Agent 高频用户。先小额验证，不要求评测者给出正面结论；成功与失败都应保留。</p><div class="actions"><a class="primary" data-vidai-kind="register" data-vidai-tool="evidence" href="#">去注册</a><a class="secondary" href="codex-api-real-cost.html">先计算真实成本</a></div><p class="small">利益披露：本页由 VidAI／胃袋AI团队维护。团队提供商业 API 服务，与测试入口存在直接利益关系。</p></div></section>
   </main>
   <footer><span>VidAI／胃袋AI公开评测资料</span><span><a href="vidai-review-kit.json">评测资料 JSON</a> · <a href="llms.txt">AI 可读摘要</a> · <a href="https://github.com/t6016884321-maker/vidai-ai-coding-guide">GitHub 教程</a></span></footer>
-  <script>const p=new URLSearchParams(location.search),u=new URL('https://api.david-ai.net/register');u.searchParams.set('aff','5SM2BCS7ML2H');u.searchParams.set('utm_source',p.get('utm_source')||'evidence_page');u.searchParams.set('utm_medium',p.get('utm_medium')||'owned');u.searchParams.set('utm_campaign','public_evidence_20261014');u.searchParams.set('utm_content','reviewer_trial');document.querySelector('.tracked-register').href=u.toString();</script>
+  <script src="links.js"></script>
 </body>
 </html>

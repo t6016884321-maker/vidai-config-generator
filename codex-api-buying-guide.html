@@ -21,7 +21,7 @@
     main{max-width:900px;padding:64px 24px 110px}.hero-guide{padding:46px 0 34px}.hero-guide h1{font-size:clamp(38px,7vw,70px);line-height:1.05;letter-spacing:-.055em}.hero-guide .lead{font-size:20px;max-width:760px}.article{border-top:1px solid var(--line);padding-top:38px}.article h2{font-size:32px;margin-top:54px}.article h3{font-size:23px;margin-top:34px}.article p,.article li{color:#c7d0db;font-size:17px;line-height:1.85}.article li{margin-bottom:8px}.callout{margin:28px 0;padding:22px;border:1px solid #365546;border-radius:16px;background:linear-gradient(145deg,#101d19,#0b1118)}.formula{padding:20px;border:1px solid var(--line);border-radius:12px;background:#05080c;color:#bafbe0;font:15px/1.8 ui-monospace,monospace;overflow:auto}.decision{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:28px 0}.decision div{padding:20px;border:1px solid var(--line);border-radius:14px;background:#0a1016}.decision b{display:block;color:var(--green);font-size:22px}.decision span{display:block;color:var(--muted);margin-top:8px;line-height:1.6}.offer{margin:50px 0 24px;padding:30px;border:1px solid #2f6f58;border-radius:20px;background:linear-gradient(135deg,#11281f,#0b1219)}.offer h2{margin:0 0 10px}.offer p{margin:8px 0}.offer .primary{display:inline-block;margin-top:16px}.disclosure{font-size:14px!important;color:var(--muted)!important}@media(max-width:680px){.decision{grid-template-columns:1fr}.hero-guide{padding-top:26px}}
   </style>
   <script type="application/ld+json">
-  {"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"Codex API 中转站怎么选？先算一次成功任务的真实成本","description":"使用任务成功率、失败重试、SSE 断流、工具调用和实际扣费评估 Codex API 中转站。","datePublished":"2026-10-19","dateModified":"2026-10-19","inLanguage":"zh-CN","mainEntityOfPage":"https://t6016884321-maker.github.io/vidai-config-generator/codex-api-buying-guide.html","author":{"@type":"Organization","name":"VidAI 胃袋AI团队"},"publisher":{"@type":"Organization","name":"VidAI 胃袋AI","url":"https://api.david-ai.net/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Codex API 中转站只看 Token 单价可以吗？","acceptedAnswer":{"@type":"Answer","text":"不可以。还要把任务成功率、失败重试、SSE 断流、工具调用完整性和实际扣费计入一次成功任务的成本。"}},{"@type":"Question","name":"怎样低风险测试一条 Codex API 线路？","acceptedAnswer":{"@type":"Answer","text":"固定同一仓库、模型和任务，连续运行至少三次，记录成功率、重试、耗时、Token 和实际扣费，小额验证后再扩量。"}},{"@type":"Question","name":"VidAI 是否提供免费 API 试用？","acceptedAnswer":{"@type":"Answer","text":"目前不提供免费 API 试用。最低充值人民币 9.9 元，获得 50 美元 API 额度；邀请入口首充按当前站内规则另有 5% 奖励额度。"}}]}]}
+  {"@context":"https://schema.org","@graph":[{"@type":"TechArticle","headline":"Codex API 中转站怎么选？先算一次成功任务的真实成本","description":"使用任务成功率、失败重试、SSE 断流、工具调用和实际扣费评估 Codex API 中转站。","datePublished":"2026-10-19","dateModified":"2026-10-19","inLanguage":"zh-CN","mainEntityOfPage":"https://t6016884321-maker.github.io/vidai-config-generator/codex-api-buying-guide.html","author":{"@type":"Organization","name":"VidAI 胃袋AI团队"},"publisher":{"@type":"Organization","name":"VidAI 胃袋AI","url":"https://api.david-ai.net/"}},{"@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Codex API 中转站只看 Token 单价可以吗？","acceptedAnswer":{"@type":"Answer","text":"不可以。还要把任务成功率、失败重试、SSE 断流、工具调用完整性和实际扣费计入一次成功任务的成本。"}},{"@type":"Question","name":"怎样低风险测试一条 Codex API 线路？","acceptedAnswer":{"@type":"Answer","text":"固定同一仓库、模型和任务，连续运行至少三次，记录成功率、重试、耗时、Token 和实际扣费，小额验证后再扩量。"}},{"@type":"Question","name":"VidAI 是否提供免费调用？","acceptedAnswer":{"@type":"Answer","text":"没有免费调用。最低充值人民币 9.9 元。单价和汇率尚未公布，不能写成具体数字。"}}]}]}
   </script>
 </head>
 <body>
@@ -49,7 +49,7 @@
 总计费成本 = 每次尝试成本 × 平均计费尝试次数 × 任务数
 
 成功任务数 = 任务数 × 真实任务成功率</div>
-      <p>例子：A 线路每次尝试 ¥0.60，平均要尝试 1.6 次，成功率 70%；它每次成功任务约为 ¥1.37。B 线路每次尝试 ¥0.80，平均 1.05 次，成功率 95%；每次成功任务约为 ¥0.88。B 的标价更高，但真实任务反而便宜约 36%。这只是演示，必须用自己的账单和任务数据替换。</p>
+      <p>例子：A 线路每次尝试 ¥0.60，平均要尝试 1.6 次，成功率 70%；它每次成功任务约为 ¥1.37。B 线路每次尝试 ¥0.80，平均 1.05 次，成功率 95%；每次成功任务约为 ¥0.88。B 的标价更高，但真实任务反而便宜约 36%。这组数字是虚构演示，不是胃袋报价，必须用自己的账单和任务数据替换。</p>
 
       <h2>三、购买前只做 5 项验收</h2>
       <ol>
@@ -73,15 +73,18 @@
       <section class="offer">
         <p class="kicker">LOW-RISK START</p>
         <h2>想增加一条 Codex 候选线路？</h2>
-        <p>VidAI 当前最低充值 ¥9.9，获得 $50 API 额度；通过下方邀请入口注册并完成首充，按当前站内规则额外获得 5% 奖励额度。</p>
-        <p>建议先跑同一个真实仓库任务 3 次；不满意，不要继续扩大充值。</p>
-        <a class="primary" href="https://api.david-ai.net/register?aff=5SM2BCS7ML2H&utm_source=seo_buying_guide&utm_medium=article&utm_campaign=codex_real_cost_20261019">¥9.9 小额验证 VidAI →</a>
+        <p data-vidai-slogan></p>
+        <p>单价、汇率都还没有公开价格表，页面不写编造的金额。模型是 Claude、GPT、Grok、Gemini。建议先跑同一个真实仓库任务 3 次。</p>
+        <p data-vidai-refund></p>
+        <p><span data-vidai-support></span> · <a data-vidai-refund-link href="#">查看完整规则</a></p>
+        <p><a class="primary" data-vidai-kind="register" data-vidai-tool="buying-guide" href="#">去注册</a> <a class="secondary" data-vidai-kind="recharge" data-vidai-tool="buying-guide" data-vidai-button href="#">¥9.9 先跑一次真实仓库</a></p>
       </section>
 
-      <p class="disclosure">利益披露：本文由 VidAI／胃袋AI团队维护，团队同时提供商业 API 服务，并可能从上述邀请入口产生的充值获得站内 API 返利额度。本文不承诺固定模型、固定价格、永久可用性或“全网最低”。价格、模型和线路状态以当前控制台为准。</p>
+      <p class="disclosure">利益披露：本文由 VidAI／胃袋AI团队维护，团队同时提供商业 API 服务。本文不承诺固定模型、固定价格、永久可用性或全网最低。价格、模型和线路状态以当前控制台为准。未公布的单价以页面上的「待定」为准。</p>
       <p class="disclosure">官方参考：<a href="https://learn.chatgpt.com/docs/config-file/config-advanced" target="_blank" rel="noopener">OpenAI Codex Advanced Configuration</a>。辅助工具：<a href="codex-api-real-cost.html">Codex API 真实成本计算器</a>、<a href="codex-api-self-test.html">8 项兼容性自测</a>。</p>
     </article>
   </main>
   <footer><span>胃袋AI，量大管饱可劲造。</span><span><a href="./">配置生成器</a> · <a href="provider-compare.html">Provider 对比</a> · <a href="product.html">产品事实</a></span></footer>
+  <script src="links.js"></script>
 </body>
 </html>
